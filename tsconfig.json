@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "lib": ["esnext", "dom"],
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "newLine": "LF",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "target": "esnext",
+    "declaration": false,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "importHelpers": true,
+    "inlineSources": true,
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": false,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": false,
+    "stripInternal": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "traceResolution": false
+  },
+  "bazelOptions": {
+    "suppressTsconfigOverrideWarnings": true
+  }
+}
