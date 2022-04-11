@@ -25,14 +25,15 @@
     "prepare": "husky install",
     "test": "npm-run-all test:jest prettier:check lint",
     "lint": "eslint . --ext ts,tsx",
+    "ci:update-version": "zx ./scripts/ci/update-version.mjs",
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "jest": "jest --passWithNoTests --silent false --verbose false",
     "test:jest": "firebase emulators:exec --only firestore \"npm run jest\"",
     "build:clean": "shx rm -rf ./dist ./core ./types",
     "build:compile": "tsc -b ./src/tsconfig.cjs.json ./src/tsconfig.esm.json ./src/tsconfig.esm5.json ./src/tsconfig.esm5.rollup.json ./src/tsconfig.types.json",
-    "build:global": "node ./tools/make-umd-bundle.js && node ./tools/make-closure-core.js",
-    "build:package": "npm-run-all build:clean build:compile && node ./tools/prepare-package.js && node ./tools/generate-alias.js"
+    "build:global": "node ./scripts/make-umd-bundle.js && node ./scripts/make-closure-core.js",
+    "build:package": "npm-run-all build:clean build:compile && node ./scripts/prepare-package.js && node ./scripts/generate-alias.js"
   },
   "repository": {
     "type": "git",
@@ -64,8 +65,12 @@
     "./package.json": "./package.json"
   },
   "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.0.1",
     "@firebase/rules-unit-testing": "^2.0.2",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zx": "^6.0.7"
   },
   "devDependencies": {
     "@angular-devkit/build-optimizer": "^0.1302.1",
