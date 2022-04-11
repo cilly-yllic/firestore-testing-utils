@@ -74,6 +74,6 @@ jobs:
 
       - name: Install Packages
         run: npm ci
-
+      - run: npm i -g firebase-tools
       - name: jest test
         run: npm run test:jest
