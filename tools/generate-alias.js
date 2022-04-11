@@ -8,7 +8,7 @@ const fs = require('fs-extra')
 const path = require('path')
 /* eslint-enable  @typescript-eslint/no-var-requires */
 
-const aliasRoot = ['core', 'types', 'utils']
+const aliasRoot = ['core', 'types']
 
 aliasRoot
   .map(alias => path.resolve(__dirname, `../${alias}`))

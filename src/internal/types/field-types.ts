@@ -1,4 +1,9 @@
-import { GeoPoint, FieldValue, CollectionReference, DocumentData } from 'firebase/firestore'
+import { GeoPoint, FieldValue, DocumentReference, DocumentData } from 'firebase/firestore'
+import { v4 as randomStr } from 'uuid'
+
+export const collectionName = randomStr()
+export const documentId = randomStr()
+export const date = new Date()
 
 export const PRIMITIVE_FIELD_TYPES = {
   string: 'string',
@@ -48,8 +53,9 @@ export type Value =
   | []
   | null
   | FieldValue
+  | Date
   | GeoPoint
-  | CollectionReference<DocumentData>
+  | DocumentReference<DocumentData>
 
 export interface TypeValue {
   [fieldName: string]: Value | Value[] | TypeValue

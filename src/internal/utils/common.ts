@@ -1,37 +1,25 @@
 import firebase from 'firebase/compat/app'
 import '@firebase/rules-unit-testing'
-import { collection } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
 import { getGeoPoint, getServerTimestamp } from './firestore'
-import { isString, isObject, isArray } from './types'
+import { isObject, isArray } from './types'
 import {
+  collectionName,
+  documentId,
+  date,
   ALL_FIELD_TYPES,
   AllFieldTypes,
   DocumentType,
   TypePattern,
   FieldType,
   PrimitiveFieldTypes,
-  PRIMITIVE_FIELD_TYPES,
-  FieldMap,
   Value,
   PathType,
   TypeValue,
   DeepestPattern,
 } from '../types/field-types'
-import { collectionName } from '../../firestore'
 
-export const getFieldDefaultValues = (db: firebase.firestore.Firestore) => ({
-  string: 'hoge',
-  number: 1,
-  boolean: true,
-  map: {},
-  array: [],
-  null: null,
-  timestamp: getServerTimestamp(),
-  geopoint: getGeoPoint(1, 1),
-  reference: collection(db, collectionName),
-})
-
-export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firestore): Value => {
+export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firestore, isInArray = false): Value => {
   if (!type) {
     throw new Error('need type')
   }
@@ -50,7 +38,7 @@ export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firest
     case ALL_FIELD_TYPES.null:
       return null
     case ALL_FIELD_TYPES.timestamp:
-      return getServerTimestamp()
+      return isInArray ? date : getServerTimestamp()
     // return 'timestampValue'
     case ALL_FIELD_TYPES.geopoint:
       return getGeoPoint(1, 1)
@@ -59,7 +47,7 @@ export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firest
       if (!db) {
         throw new Error('need db')
       }
-      return collection(db, collectionName)
+      return doc(db, collectionName, documentId)
     // return 'referenceValue'
   }
 }
@@ -120,7 +108,7 @@ export const getTypesValues = (pattern: TypePattern, db?: firebase.firestore.Fir
     } else if (isArray(types)) {
       const type = types[0] as FieldType
       values = [
-        isObject(type) ? getTypesValues(type as DocumentType, db) : getTypeValue(type as PrimitiveFieldTypes, db),
+        isObject(type) ? getTypesValues(type as DocumentType, db) : getTypeValue(type as PrimitiveFieldTypes, db, true),
       ]
     } else {
       values = getTypeValue(types as PrimitiveFieldTypes, db)

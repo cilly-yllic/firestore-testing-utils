@@ -1,6 +1,6 @@
 import { getRecursiveWrongTypeValues } from '../'
 import { PRIMITIVE_FIELD_TYPES } from '../types/field-types'
-import { getFieldDefaultValues } from '../utils/common'
+import { getFieldDefaultValues } from '../utils/test'
 import { getDb } from '../../firestore'
 
 const ARRAY = [

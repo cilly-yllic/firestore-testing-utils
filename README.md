@@ -1,1 +1,1 @@
-# firestore-testing-utils
+# firestore-document-type-patterns

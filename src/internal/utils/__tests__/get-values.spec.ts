@@ -1,4 +1,4 @@
-import { CollectionReference } from '@firebase/firestore'
+import { DocumentReference } from '@firebase/firestore'
 import { GeoPoint, FieldValue } from 'firebase/firestore'
 import { getDb } from '../../../firestore'
 import { getTypeValue } from '../common'
@@ -25,6 +25,6 @@ describe('get value check', () => {
   })
   it(`is ${PRIMITIVE_FIELD_TYPES.reference}`, async () => {
     const db = await getDb()
-    expect(getTypeValue(PRIMITIVE_FIELD_TYPES.reference, db) instanceof CollectionReference).toBe(true)
+    expect(getTypeValue(PRIMITIVE_FIELD_TYPES.reference, db) instanceof DocumentReference).toBe(true)
   })
 })

@@ -1,4 +1,5 @@
-import { getFieldDefaultValues, getTypesValues } from '../common'
+import { getTypesValues } from '../common'
+import { getFieldDefaultValues } from '../test'
 import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types'
 import { getDb } from '../../../firestore'
 

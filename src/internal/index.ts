@@ -1,13 +1,14 @@
 import firebase from 'firebase/compat/app'
 import {
-  getTypesPatterns,
+  getTypeValue as _getTypeValue,
+  getTypesValues as _getTypesValues,
+  getTypesPatterns as _getTypesPatterns,
   getDeepestPattern,
   getAllPathTypes,
   updateObjProp,
   copy,
-  getTypesValues,
 } from './utils/common'
-import { DocumentType, TypePattern } from './types/field-types'
+import { DocumentType, AllFieldTypes, TypePattern, TypeValue, Value } from './types/field-types'
 
 export const getRecursiveWrongTypes = (documentType: DocumentType) => {
   const patterns = getTypesPatterns(documentType) as TypePattern[]
@@ -20,9 +21,22 @@ export const getRecursiveWrongTypes = (documentType: DocumentType) => {
   })
 }
 
-export const getRecursiveWrongTypeValues = (documentType: DocumentType, db: firebase.firestore.Firestore) =>
-  getRecursiveWrongTypes(documentType).map(obj => getTypesValues(obj, db))
-export const getRecursiveRiteTypeValues = (documentType: DocumentType, db: firebase.firestore.Firestore) => {
+export const getTypeValue = (type: AllFieldTypes, db: firebase.firestore.Firestore): Value =>
+  _getTypeValue(type, db) as Value
+export const getTypesValues = (pattern: TypePattern, db: firebase.firestore.Firestore): TypeValue =>
+  _getTypesValues(pattern, db) as TypeValue
+export const getTypesPatterns = (documentType: DocumentType): TypePattern[] =>
+  _getTypesPatterns(documentType) as TypePattern[]
+
+export const getRecursiveWrongTypeValues = (
+  documentType: DocumentType,
+  db: firebase.firestore.Firestore
+): TypeValue[] => getRecursiveWrongTypes(documentType).map(obj => getTypesValues(obj, db))
+
+export const getRecursiveRiteTypeValues = (
+  documentType: DocumentType,
+  db: firebase.firestore.Firestore
+): TypeValue[] => {
   const patterns = getTypesPatterns(documentType) as TypePattern[]
   return patterns.map(pattern => getTypesValues(pattern, db))
 }

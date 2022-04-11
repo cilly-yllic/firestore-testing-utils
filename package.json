@@ -1,5 +1,5 @@
 {
-  "name": "firestore-testing-utils",
+  "name": "firestore-document-type-partterns",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/cjs/index.js",
@@ -29,21 +29,21 @@
     "prettier:check": "prettier --check .",
     "jest": "jest --passWithNoTests --silent false --verbose false",
     "test:jest": "firebase emulators:exec --only firestore \"npm run jest\"",
-    "build:clean": "shx rm -rf ./dist ./tasks ./types",
+    "build:clean": "shx rm -rf ./dist ./core ./types",
     "build:compile": "tsc -b ./src/tsconfig.cjs.json ./src/tsconfig.esm.json ./src/tsconfig.esm5.json ./src/tsconfig.esm5.rollup.json ./src/tsconfig.types.json",
     "build:global": "node ./tools/make-umd-bundle.js && node ./tools/make-closure-core.js",
     "build:package": "npm-run-all build:clean build:compile && node ./tools/prepare-package.js && node ./tools/generate-alias.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cilly-yllic/firestore-testing-utils.git"
+    "url": "git+https://github.com/cilly-yllic/firestore-document-type-patterns.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cilly-yllic/firestore-testing-utils/issues"
+    "url": "https://github.com/cilly-yllic/firestore-document-type-patterns/issues"
   },
-  "homepage": "https://github.com/cilly-yllic/firestore-testing-utils#readme",
+  "homepage": "https://github.com/cilly-yllic/firestore-document-type-patterns#readme",
   "exports": {
     ".": {
       "node": "./dist/cjs/index.js",
@@ -56,10 +56,6 @@
     "./types": {
       "node": "./dist/cjs/types.js",
       "default": "./dist/esm5/types.js"
-    },
-    "./utils": {
-      "node": "./dist/cjs/utils.js",
-      "default": "./dist/esm5/utils.js"
     },
     "./internal/*": {
       "node": "./dist/cjs/internal/*.js",
@@ -100,7 +96,6 @@
     "dist/types/**/!(*.tsbuildinfo)",
     "core",
     "types",
-    "utils",
     "src",
     "package.json",
     "README.md",
