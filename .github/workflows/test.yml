@@ -3,6 +3,7 @@ name: Test Build and Lint
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches-ignore: [main]
 
 env:
   NODE_VERSION_FILE: .nvmrc
