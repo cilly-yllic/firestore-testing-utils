@@ -1,5 +1,5 @@
 {
-  "name": "firestore-document-type-partterns",
+  "name": "@cilly-yllic/firestore-document-type-partterns",
   "version": "1.0.2",
   "description": "",
   "main": "./dist/cjs/index.js",
