@@ -1,6 +1,6 @@
 {
   "name": "firestore-document-type-partterns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm5/index.js",
