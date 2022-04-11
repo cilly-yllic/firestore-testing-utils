@@ -12,7 +12,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version-file: .nvmrc
-      - run: bash ./scripts/ci/echo-npmrc.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - run: npm ci
       - run: npm test
 
@@ -28,7 +27,6 @@ jobs:
         with:
           node-version-file: .nvmrc
           registry-url: https://npm.pkg.github.com/
-      - run: bash ./scripts/ci/echo-npmrc.sh ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - run: npm ci
       - run: npm run build:package
       - run: npm publish
