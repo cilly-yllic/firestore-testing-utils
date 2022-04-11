@@ -10,12 +10,12 @@ const VERSION_MAP = {
 
 const PRE_VERSION = {
   prefix: '$1',
-  num: '$2'
+  num: '$2',
 }
 
-const getValueType = (value) => Object.prototype.toString.call(value).slice(8, -1)
-const isNumber = (value) => getValueType(value) === 'Number' && !Number.isNaN(value)
-const isString = (value) => getValueType(value) === 'String'
+const getValueType = value => Object.prototype.toString.call(value).slice(8, -1)
+const isNumber = value => getValueType(value) === 'Number' && !Number.isNaN(value)
+const isString = value => getValueType(value) === 'String'
 const isNumberAllowString = () => {
   if (isNumber(value)) {
     return value - value === 0
@@ -55,9 +55,6 @@ const run = async () => {
   await $`sed -i 'package.json' -e 's/"version": "${currentVersion}"/"version": "${nextVersion}"/'`
 }
 
-run().then(
-    (version) => {
-      return version
-    }
-)
-
+run().then(version => {
+  return version
+})
