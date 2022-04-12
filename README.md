@@ -5,7 +5,6 @@ This Package Published By Github Packages
 > firestore-document-type-patterns give you type test patterns.
 > Then you might be able to check value types for security rule test easily.
 
-
 ## Installation
 
 ```bash
@@ -19,14 +18,17 @@ $ npm i @cilly-yllic/firestore-document-type-partterns
 import { assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
 import { doc, setDoc } from 'firebase/firestore'
 import { v4 as randomStr } from 'uuid'
-import { getTypesPatterns, getTypesValues, getRecursiveWrongTypes } from '@cilly-yllic/firestore-document-type-partterns/core'
+import {
+  getTypesPatterns,
+  getTypesValues,
+  getRecursiveWrongTypes,
+} from '@cilly-yllic/firestore-document-type-partterns/core'
 import { DocumentType, TypePattern, ALL_FIELD_TYPES } from '@cilly-yllic/firestore-document-type-partterns/types'
-
 
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
   'tags[]': ALL_FIELD_TYPES.string,
-  createdAt: ALL_FIELD_TYPES.timestamp
+  createdAt: ALL_FIELD_TYPES.timestamp,
 }
 
 const wrongTypes = getRecursiveWrongTypes(documentTypes)
@@ -35,41 +37,43 @@ const path = 'users'
 const uid = randomStr()
 const pathSegments = [uid]
 
-rightTypes.forEach((data) => {
+rightTypes.forEach(data => {
   test(`${JSON.stringify(data, null, 2)}`, async () => {
     await assertSucceeds(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
   })
 })
 
-wrongTypes.forEach((data) => {
+wrongTypes.forEach(data => {
   test(`${JSON.stringify(data, null, 2)}`, async () => {
     await assertFails(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
   })
 })
-
 ```
 
 ## Type Variables
 
-|  Field type  |  rule  |  name  |
-| ---- | ---- | ---- |
-|  string  | is string |  ALL_FIELD_TYPES.string  |
-|  number  | is int |  ALL_FIELD_TYPES.number  |
-|  boolean  | is bool |  ALL_FIELD_TYPES.boolean  |
-|  map  | is map |  ALL_FIELD_TYPES.map  |
-|  array  | is list |  ALL_FIELD_TYPES.array  |
-|  null  | == null |  ALL_FIELD_TYPES.null  |
-|  timestamp  | is timestamp |  ALL_FIELD_TYPES.timestamp  |
-|  geopoint  | is latlng |  ALL_FIELD_TYPES.geopoint  |
-|  reference  | is path |  ALL_FIELD_TYPES.reference  |
+| Field type | rule         | name                      |
+| ---------- | ------------ | ------------------------- |
+| string     | is string    | ALL_FIELD_TYPES.string    |
+| number     | is int       | ALL_FIELD_TYPES.number    |
+| boolean    | is bool      | ALL_FIELD_TYPES.boolean   |
+| map        | is map       | ALL_FIELD_TYPES.map       |
+| array      | is list      | ALL_FIELD_TYPES.array     |
+| null       | == null      | ALL_FIELD_TYPES.null      |
+| timestamp  | is timestamp | ALL_FIELD_TYPES.timestamp |
+| geopoint   | is latlng    | ALL_FIELD_TYPES.geopoint  |
+| reference  | is path      | ALL_FIELD_TYPES.reference |
 
 ## DocumentType Rule Simple
+
 ### Ex1
+
 ```firebase_rules
 function isStr(data) {
     return data is string;
 }
 ```
+
 ```ts
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
@@ -77,6 +81,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   { uid: 'hoge' }
@@ -84,6 +89,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   { uid: 1 },
@@ -94,11 +100,12 @@ const documentTypes: DocumentType = {
   { uid: FieldValue },
   { uid: GeoPoint },
   { uid: DocumentReference<DocumentData> },
-  
+
 ]
 ```
 
 ### Ex2 Multiple types of One Field
+
 ```firebase_rules
 function(data) {
     return data.uid is string
@@ -114,6 +121,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   {
@@ -128,33 +136,34 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
 
   { uid: 1, createdAt: FieldValue },
   { uid: 1, createdAt: null },
-  
+
   { uid: true, createdAt: FieldValue },
   { uid: true, createdAt: null },
-  
+
   { uid: {}, createdAt: FieldValue },
   { uid: {}, createdAt: null },
-  
+
   { uid: [], createdAt: FieldValue },
   { uid: [], createdAt: null },
-  
+
   { uid: null, createdAt: FieldValue },
   { uid: null, createdAt: null },
-  
+
   { uid: FieldValue, createdAt: FieldValue },
   { uid: FieldValue, createdAt: null },
-  
+
   { uid: GeoPoint, createdAt: FieldValue },
   { uid: GeoPoint, createdAt: null },
-  
+
   { uid: DocumentReference<DocumentData>, createdAt: FieldValue },
   { uid: DocumentReference<DocumentData>, createdAt: null },
-  
+
   { uid: 'hoge'', createdAt: 'hoge' },
   { uid: 'hoge'', createdAt: 1 },
   { uid: 'hoge'', createdAt: true },
@@ -166,6 +175,7 @@ const documentTypes: DocumentType = {
 ```
 
 ### Ex3 Array Field
+
 ```firebase_rules
 function isStrings(strings) {
     return strings.size() == 0 || ( strings.size() >= 1 && strings[strings.size() - 1] is string )
@@ -179,6 +189,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   {
@@ -188,6 +199,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   { tags: [1] },
@@ -197,11 +209,12 @@ const documentTypes: DocumentType = {
   { tags: [FieldValue] },
   { tags: [GeoPoint] },
   { tags: [DocumentReference<DocumentData>] },
-  
+
 ]
 ```
 
 ### Ex4 Map Field
+
 ```firebase_rules
 function(data) {
     return data.map.size() == 1
@@ -212,12 +225,13 @@ function(data) {
 ```ts
 const documentTypes: DocumentType = {
   map: {
-    uid: ALL_FIELD_TYPES.string
-  }
+    uid: ALL_FIELD_TYPES.string,
+  },
 }
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   {
@@ -229,6 +243,7 @@ const documentTypes: DocumentType = {
 ```
 
 `getRecursiveWrongTypes`
+
 ```text
 [
   { map: { uid: 'hoge' } },
@@ -246,6 +261,7 @@ const documentTypes: DocumentType = {
 ## Tips
 
 Might be work
+
 ```ts
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
@@ -253,8 +269,8 @@ const documentTypes: DocumentType = {
     ALL_FIELD_TYPES.number,
     {
       uid: ALL_FIELD_TYPES.string,
-      'arr[]': ALL_FIELD_TYPES.boolean
-    }
+      'arr[]': ALL_FIELD_TYPES.boolean,
+    },
   ],
   map: {
     'arr[]': [ALL_FIELD_TYPES.boolean, ALL_FIELD_TYPES.number],
@@ -262,12 +278,13 @@ const documentTypes: DocumentType = {
       ALL_FIELD_TYPES.null,
       {
         hoge: ALL_FIELD_TYPES.string,
-      }
+      },
     ],
-  }
+  },
 }
 ```
 
 ### Timestamp for In Array
+
 > usually use serverTimestamp(), but use new Date() in Array
 > because FieldValue.serverTimestamp() is not currently supported inside array.
