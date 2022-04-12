@@ -64,9 +64,9 @@ wrongTypes.forEach(data => {
 | geopoint   | is latlng    | ALL_FIELD_TYPES.geopoint  |
 | reference  | is path      | ALL_FIELD_TYPES.reference |
 
-## DocumentType Rule Simple
+## DocumentType Rule
 
-### Ex1
+### Ex1: Simple
 
 ```firebase_rules
 function isStr(data) {
@@ -104,7 +104,7 @@ const documentTypes: DocumentType = {
 ]
 ```
 
-### Ex2 Multiple types of One Field
+### Ex2: Multiple types of One Field
 
 ```firebase_rules
 function(data) {
@@ -174,7 +174,7 @@ const documentTypes: DocumentType = {
 ]
 ```
 
-### Ex3 Array Field
+### Ex3: Array Field
 
 ```firebase_rules
 function isStrings(strings) {
@@ -213,7 +213,7 @@ const documentTypes: DocumentType = {
 ]
 ```
 
-### Ex4 Map Field
+### Ex4: Map Field
 
 ```firebase_rules
 function(data) {
