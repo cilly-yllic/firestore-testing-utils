@@ -100,7 +100,11 @@ export const getTypesPatterns = (documentType: DocumentType): TypePattern[] | [F
   }, [])
 }
 
-export const getTypesValues = (pattern: TypePattern, db?: firebase.firestore.Firestore): TypeValue | TypePattern => {
+export const getTypesValues = (
+  pattern: TypePattern,
+  db?: firebase.firestore.Firestore,
+  isInArray = false
+): TypeValue | TypePattern => {
   return Object.entries(pattern).reduce((objectAcc: TypeValue | TypePattern, [fieldName, types]) => {
     let values
     if (isObject(types)) {
@@ -108,10 +112,12 @@ export const getTypesValues = (pattern: TypePattern, db?: firebase.firestore.Fir
     } else if (isArray(types)) {
       const type = types[0] as FieldType
       values = [
-        isObject(type) ? getTypesValues(type as DocumentType, db) : getTypeValue(type as PrimitiveFieldTypes, db, true),
+        isObject(type)
+          ? getTypesValues(type as DocumentType, db, true)
+          : getTypeValue(type as PrimitiveFieldTypes, db, true),
       ]
     } else {
-      values = getTypeValue(types as PrimitiveFieldTypes, db)
+      values = getTypeValue(types as PrimitiveFieldTypes, db, isInArray)
     }
     objectAcc[fieldName] = values
     return objectAcc
