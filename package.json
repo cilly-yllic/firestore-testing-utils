@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm5/index.js",
