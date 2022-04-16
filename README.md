@@ -8,12 +8,14 @@ This Package Basically Published By Github Packages
 ## Installation
 
 Github Packages
+
 ```bash
 $ echo "registry=https://npm.pkg.github.com/cilly-yllic" >> .npmrc
 $ npm i @cilly-yllic/firestore-document-type-partterns
 ```
 
 NPM Packages
+
 ```bash
 $ npm i firestore-document-type-partterns
 ```
