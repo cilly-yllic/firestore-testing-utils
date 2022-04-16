@@ -61,7 +61,7 @@ jobs:
           body: '${{github.event.pull_request.body}}'
           draft: false
           prerelease: false
-  publish:
+  publish-github:
     needs: release
     runs-on: ubuntu-latest
     permissions:

@@ -1,18 +1,26 @@
 # firestore-document-type-patterns
 
-This Package Published By Github Packages
+This Package Basically Published By Github Packages
 
 > firestore-document-type-patterns give you type test patterns.
 > Then you might be able to check value types for security rule test easily.
 
 ## Installation
 
+Github Packages
 ```bash
 $ echo "registry=https://npm.pkg.github.com/cilly-yllic" >> .npmrc
 $ npm i @cilly-yllic/firestore-document-type-partterns
 ```
 
+NPM Packages
+```bash
+$ npm i firestore-document-type-partterns
+```
+
 ## How To Use
+
+**If you install from NPM rename `@cilly-yllic/firestore-document-type-partterns` to `firestore-document-type-partterns`**
 
 ```ts
 import { assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
@@ -164,13 +172,13 @@ const documentTypes: DocumentType = {
   { uid: DocumentReference<DocumentData>, createdAt: FieldValue },
   { uid: DocumentReference<DocumentData>, createdAt: null },
 
-  { uid: 'hoge'', createdAt: 'hoge' },
-  { uid: 'hoge'', createdAt: 1 },
-  { uid: 'hoge'', createdAt: true },
-  { uid: 'hoge'', createdAt: {} },
-  { uid: 'hoge'', createdAt: [] },
-  { uid: 'hoge'', createdAt: GeoPoint },
-  { uid: 'hoge'', createdAt: DocumentReference<DocumentData> },
+  { uid: 'hoge', createdAt: 'hoge' },
+  { uid: 'hoge', createdAt: 1 },
+  { uid: 'hoge', createdAt: true },
+  { uid: 'hoge', createdAt: {} },
+  { uid: 'hoge', createdAt: [] },
+  { uid: 'hoge', createdAt: GeoPoint },
+  { uid: 'hoge', createdAt: DocumentReference<DocumentData> },
 ]
 ```
 
