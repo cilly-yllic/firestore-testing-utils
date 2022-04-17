@@ -47,15 +47,17 @@ const path = 'users'
 const uid = randomStr()
 const pathSegments = [uid]
 
-rightTypes.forEach(data => {
-  test(`${JSON.stringify(data, null, 2)}`, async () => {
-    await assertSucceeds(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+describe('', () => {
+  rightTypes.forEach(data => {
+    test(`${JSON.stringify(data, null, 2)}`, async () => {
+      await assertSucceeds(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+    })
   })
-})
 
-wrongTypes.forEach(data => {
-  test(`${JSON.stringify(data, null, 2)}`, async () => {
-    await assertFails(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+  wrongTypes.forEach(data => {
+    test(`${JSON.stringify(data, null, 2)}`, async () => {
+      await assertFails(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+    })
   })
 })
 ```
