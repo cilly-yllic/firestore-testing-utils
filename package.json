@@ -2,6 +2,7 @@
   "name": "@cilly-yllic/firestore-document-type-partterns",
   "version": "1.0.5",
   "description": "",
+  "keywords": ["firebase", "firestgore", "security rule", "unit test", "document", "field type", "pattern"],
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm5/index.js",
   "es2015": "./dist/esm/index.js",
