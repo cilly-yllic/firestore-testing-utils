@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "keywords": ["firebase", "firestgore", "security rule", "unit test", "document", "field type", "pattern"],
   "main": "./dist/cjs/index.js",
