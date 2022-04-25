@@ -10,7 +10,7 @@ This Package Basically Published By Github Packages
 Github Packages
 
 ```bash
-$ echo "registry=https://npm.pkg.github.com/cilly-yllic" >> .npmrc
+$ echo "@cilly-yllic:registry=https://npm.pkg.github.com" >> .npmrc
 $ npm i @cilly-yllic/firestore-document-type-partterns
 ```
 
