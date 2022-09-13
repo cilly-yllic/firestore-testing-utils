@@ -24,10 +24,16 @@ export type PrimitiveFieldTypes = typeof PRIMITIVE_FIELD_TYPES[keyof typeof PRIM
 export type AllFieldTypes = typeof ALL_FIELD_TYPES[keyof typeof ALL_FIELD_TYPES]
 export type FieldType = PrimitiveFieldTypes | FieldMap
 
-export interface FieldMap {
-  [fieldName: string]: FieldType | FieldType[]
-}
-export type DocumentType = FieldMap
+export type ArrayFieldKey<T = DocumentData> = Extract<keyof T, string>
+export type ArrayField<T = DocumentData> = `${ArrayFieldKey<T>}${'[]'}`
+export type FieldMap<T = DocumentData> =
+  | {
+      [fieldName in keyof T]: FieldType | FieldType[]
+    }
+  | {
+      [fieldName in ArrayField<T>]: FieldType | FieldType[]
+    }
+export type DocumentType<T = DocumentData> = FieldMap<Partial<T>>
 
 export type PatternType = AllFieldTypes | PatternMap
 export type PatternMap = TypePattern
