@@ -25,7 +25,7 @@ export type AllFieldTypes = typeof ALL_FIELD_TYPES[keyof typeof ALL_FIELD_TYPES]
 export type FieldType = PrimitiveFieldTypes | FieldMap
 
 export type ArrayFieldKey<T = DocumentData> = Extract<keyof T, string>
-export type ArrayField<T = DocumentData> = `${ArrayFieldKey<T>}${'[]'}`
+export type ArrayField<T = DocumentData> = `${ArrayFieldKey<T>}[]`
 export type FieldMap<T = DocumentData> =
   | {
       [fieldName in keyof T]: FieldType | FieldType[]
