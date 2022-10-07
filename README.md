@@ -92,7 +92,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getRecursiveWrongTypes`
+`getTypesPatterns`
 
 ```text
 [
@@ -132,7 +132,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getRecursiveWrongTypes`
+`getTypesPatterns`
 
 ```text
 [
@@ -200,7 +200,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getRecursiveWrongTypes`
+`getTypesPatterns`
 
 ```text
 [
@@ -242,7 +242,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getRecursiveWrongTypes`
+`getTypesPatterns`
 
 ```text
 [
