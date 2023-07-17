@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "description": "",
   "keywords": [
@@ -32,6 +32,7 @@
     "jest": "jest --passWithNoTests --silent false --verbose false",
     "test:jest": "firebase emulators:exec --only firestore \"npm run jest\"",
     "build": "run-s build:{lint,jest,clean,tsc,generate}",
+    "build:publish": "run-s build:{clean,tsc,generate}",
     "build:lint": "npm run lint",
     "build:jest": "npm run test:jest",
     "build:clean": "npm run clean",

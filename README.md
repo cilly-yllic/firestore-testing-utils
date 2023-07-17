@@ -7,6 +7,15 @@ This Package Basically Published By Github Packages
 
 ## Installation
 
+from v2.0.0
+**Please set the 'type' field in your package.json to 'module' since this package supports Pure ESM.**
+
+```json
+{
+  "type": "module"
+}
+```
+
 Github Packages
 
 ```bash
