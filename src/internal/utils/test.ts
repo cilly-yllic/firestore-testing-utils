@@ -1,9 +1,10 @@
-import firebase from 'firebase/compat/app'
 import { doc } from 'firebase/firestore'
-import { getGeoPoint, getServerTimestamp } from './firestore'
-import { collectionName, documentId, date } from '../types/field-types'
 
-export const getFieldDefaultValues = (db: firebase.firestore.Firestore, isInArray = false) => ({
+import { Firestore, collectionName, documentId, date } from '../types/field-types.js'
+
+import { getGeoPoint, getServerTimestamp } from './firestore.js'
+
+export const getFieldDefaultValues = (db: Firestore, isInArray = false) => ({
   string: 'hoge',
   number: 1,
   boolean: true,

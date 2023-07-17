@@ -1,7 +1,7 @@
-import { getRecursiveRiteTypeValues } from '../'
-import { PRIMITIVE_FIELD_TYPES } from '../types/field-types'
-import { getFieldDefaultValues } from '../utils/test'
-import { getDb } from '../../firestore'
+import { getDb } from '../../firestore/index.js'
+import { getRecursiveRiteTypeValues } from '../index.js'
+import { PRIMITIVE_FIELD_TYPES } from '../types/field-types.js'
+import { getFieldDefaultValues } from '../utils/test.js'
 
 const ARRAY = [
   // PRIMITIVE_FIELD_TYPES.string,

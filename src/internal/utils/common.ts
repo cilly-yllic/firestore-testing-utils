@@ -1,9 +1,8 @@
-import firebase from 'firebase/compat/app'
-import '@firebase/rules-unit-testing'
+// import '@firebase/rules-unit-testing'
 import { doc } from 'firebase/firestore'
-import { getGeoPoint, getServerTimestamp } from './firestore'
-import { isObject, isArray } from './types'
+
 import {
+  Firestore,
   collectionName,
   documentId,
   date,
@@ -11,15 +10,19 @@ import {
   AllFieldTypes,
   DocumentType,
   TypePattern,
+  PatternType,
   FieldType,
   PrimitiveFieldTypes,
   Value,
   PathType,
   TypeValue,
   DeepestPattern,
-} from '../types/field-types'
+} from '../types/field-types.js'
 
-export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firestore, isInArray = false): Value => {
+import { getGeoPoint, getServerTimestamp } from './firestore.js'
+import { isObject, isArray } from './types.js'
+
+export const getTypeValue = (type: AllFieldTypes, db?: Firestore, isInArray = false): Value => {
   if (!type) {
     throw new Error('need type')
   }
@@ -54,7 +57,7 @@ export const getTypeValue = (type: AllFieldTypes, db?: firebase.firestore.Firest
 
 export const getLeftTypes = (types: AllFieldTypes[]): AllFieldTypes[] =>
   Object.values(ALL_FIELD_TYPES).filter(TYPE => types.every(type => TYPE !== type))
-export const getLeftTypeValues = (types: AllFieldTypes[], db?: firebase.firestore.Firestore): Value[] =>
+export const getLeftTypeValues = (types: AllFieldTypes[], db?: Firestore): Value[] =>
   getLeftTypes(types).map(TYPE => getTypeValue(TYPE, db))
 
 export const getUnique = <T extends string | number>(list: T[]): T[] => [...new Set(list)]
@@ -62,7 +65,9 @@ export const getUnique = <T extends string | number>(list: T[]): T[] => [...new 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const copy = (data: any) => JSON.parse(JSON.stringify(data))
 
-export const updateObjProp = (obj, value, propPath) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Obj = Record<string, any>
+export const updateObjProp = (obj: Obj, value: string, propPath: string) => {
   const [head, ...rest] = propPath.split('.')
   const key = head.replace(/\[\]$/, '')
   const _isArray = head.endsWith('[]')
@@ -100,17 +105,13 @@ export const getTypesPatterns = (documentType: DocumentType): TypePattern[] | [F
   }, [])
 }
 
-export const getTypesValues = (
-  pattern: TypePattern,
-  db?: firebase.firestore.Firestore,
-  isInArray = false
-): TypeValue | TypePattern => {
+export const getTypesValues = (pattern: TypePattern, db?: Firestore, isInArray = false): TypeValue | TypePattern => {
   return Object.entries(pattern).reduce((objectAcc: TypeValue | TypePattern, [fieldName, types]) => {
     let values
     if (isObject(types)) {
       values = getTypesValues(types as DocumentType, db)
     } else if (isArray(types)) {
-      const type = types[0] as FieldType
+      const type = (types as PatternType[])[0] as FieldType
       values = [
         isObject(type)
           ? getTypesValues(type as DocumentType, db, true)
@@ -161,13 +162,13 @@ export const getAllPathTypes = (documentType: DocumentType, path = ''): PathType
 }
 
 export const getObjectCount = (pattern: TypePattern) => {
-  return Object.entries(pattern).reduce((acc, [fieldName, type]) => {
+  return Object.entries(pattern).reduce((acc, [_fieldName, type]) => {
     if (isObject(type)) {
       acc++
       acc += getObjectCount(type as TypePattern)
-    } else if (isArray(type) && isObject(type[0])) {
+    } else if (isArray(type) && isObject((type as PatternType[])[0])) {
       acc++
-      acc += getObjectCount(type[0] as TypePattern)
+      acc += getObjectCount((type as PatternType[])[0] as TypePattern)
     }
     return acc
   }, 0)

@@ -1,5 +1,5 @@
-import { getDeepestPattern } from '../common'
-import { PRIMITIVE_FIELD_TYPES, TypePattern, DeepestPattern } from '../../types/field-types'
+import { PRIMITIVE_FIELD_TYPES, TypePattern, DeepestPattern } from '../../types/field-types.js'
+import { getDeepestPattern } from '../common.js'
 
 describe('get deepest pattern', () => {
   it(`check`, async () => {

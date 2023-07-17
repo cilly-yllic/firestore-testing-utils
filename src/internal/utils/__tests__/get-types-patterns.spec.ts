@@ -1,5 +1,5 @@
-import { getTypesPatterns } from '../common'
-import { DocumentType, PRIMITIVE_FIELD_TYPES } from '../../types/field-types'
+import { DocumentType, PRIMITIVE_FIELD_TYPES } from '../../types/field-types.js'
+import { getTypesPatterns } from '../common.js'
 
 describe('get types patterns', () => {
   it(`check`, async () => {

@@ -1,7 +1,7 @@
-import { getTypesValues } from '../common'
-import { getFieldDefaultValues } from '../test'
-import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types'
-import { getDb } from '../../../firestore'
+import { getDb } from '../../../firestore/index.js'
+import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types.js'
+import { getTypesValues } from '../common.js'
+import { getFieldDefaultValues } from '../test.js'
 
 describe('get type values', () => {
   it(`check string array`, async () => {

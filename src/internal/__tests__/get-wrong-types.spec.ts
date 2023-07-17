@@ -1,5 +1,5 @@
-import { getRecursiveWrongTypes } from '../'
-import { PRIMITIVE_FIELD_TYPES, ALL_FIELD_TYPES } from '../types/field-types'
+import { getRecursiveWrongTypes } from '../index.js'
+import { PRIMITIVE_FIELD_TYPES, ALL_FIELD_TYPES } from '../types/field-types.js'
 
 const ARRAY = [
   // PRIMITIVE_FIELD_TYPES.string,

@@ -1,1 +1,1 @@
-export * from './internal/index'
+export * from './internal/index.js'

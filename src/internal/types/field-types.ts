@@ -1,6 +1,8 @@
+import { RulesTestContext } from '@firebase/rules-unit-testing'
 import { GeoPoint, FieldValue, DocumentReference, DocumentData } from 'firebase/firestore'
 import { v4 as randomStr } from 'uuid'
 
+export type Firestore = ReturnType<RulesTestContext['firestore']>
 export const collectionName = randomStr()
 export const documentId = randomStr()
 export const date = new Date()
@@ -20,8 +22,8 @@ export const ALL_FIELD_TYPES = {
   array: 'array',
 }
 
-export type PrimitiveFieldTypes = typeof PRIMITIVE_FIELD_TYPES[keyof typeof PRIMITIVE_FIELD_TYPES]
-export type AllFieldTypes = typeof ALL_FIELD_TYPES[keyof typeof ALL_FIELD_TYPES]
+export type PrimitiveFieldTypes = (typeof PRIMITIVE_FIELD_TYPES)[keyof typeof PRIMITIVE_FIELD_TYPES]
+export type AllFieldTypes = (typeof ALL_FIELD_TYPES)[keyof typeof ALL_FIELD_TYPES]
 export type FieldType = PrimitiveFieldTypes | FieldMap
 
 export type ArrayField<T = DocumentData> = `${Extract<keyof T, string>}[]`

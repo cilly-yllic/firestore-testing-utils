@@ -1,8 +1,9 @@
 import { DocumentReference } from '@firebase/firestore'
 import { GeoPoint, FieldValue } from 'firebase/firestore'
-import { getDb } from '../../../firestore'
-import { getTypeValue } from '../common'
-import { PRIMITIVE_FIELD_TYPES } from '../../types/field-types'
+
+import { getDb } from '../../../firestore/index.js'
+import { PRIMITIVE_FIELD_TYPES } from '../../types/field-types.js'
+import { getTypeValue } from '../common.js'
 
 describe('get value check', () => {
   it(`is ${PRIMITIVE_FIELD_TYPES.string}`, () => {

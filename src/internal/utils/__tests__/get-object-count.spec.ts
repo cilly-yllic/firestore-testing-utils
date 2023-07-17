@@ -1,5 +1,5 @@
-import { getObjectCount } from '../common'
-import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types'
+import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types.js'
+import { getObjectCount } from '../common.js'
 
 describe('get object count', () => {
   it(`check`, async () => {

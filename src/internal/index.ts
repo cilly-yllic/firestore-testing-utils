@@ -1,4 +1,4 @@
-import firebase from 'firebase/compat/app'
+import { Firestore, DocumentType, AllFieldTypes, TypePattern, TypeValue, Value } from './types/field-types.js'
 import {
   getTypeValue as _getTypeValue,
   getTypesValues as _getTypesValues,
@@ -7,8 +7,7 @@ import {
   getAllPathTypes,
   updateObjProp,
   copy,
-} from './utils/common'
-import { DocumentType, AllFieldTypes, TypePattern, TypeValue, Value } from './types/field-types'
+} from './utils/common.js'
 
 export const getRecursiveWrongTypes = (documentType: DocumentType) => {
   const patterns = getTypesPatterns(documentType) as TypePattern[]
@@ -21,22 +20,16 @@ export const getRecursiveWrongTypes = (documentType: DocumentType) => {
   })
 }
 
-export const getTypeValue = (type: AllFieldTypes, db: firebase.firestore.Firestore): Value =>
-  _getTypeValue(type, db) as Value
-export const getTypesValues = (pattern: TypePattern, db: firebase.firestore.Firestore): TypeValue =>
+export const getTypeValue = (type: AllFieldTypes, db: Firestore): Value => _getTypeValue(type, db) as Value
+export const getTypesValues = (pattern: TypePattern, db: Firestore): TypeValue =>
   _getTypesValues(pattern, db) as TypeValue
 export const getTypesPatterns = (documentType: DocumentType): TypePattern[] =>
   _getTypesPatterns(documentType) as TypePattern[]
 
-export const getRecursiveWrongTypeValues = (
-  documentType: DocumentType,
-  db: firebase.firestore.Firestore
-): TypeValue[] => getRecursiveWrongTypes(documentType).map(obj => getTypesValues(obj, db))
+export const getRecursiveWrongTypeValues = (documentType: DocumentType, db: Firestore): TypeValue[] =>
+  getRecursiveWrongTypes(documentType).map(obj => getTypesValues(obj, db))
 
-export const getRecursiveRiteTypeValues = (
-  documentType: DocumentType,
-  db: firebase.firestore.Firestore
-): TypeValue[] => {
+export const getRecursiveRiteTypeValues = (documentType: DocumentType, db: Firestore): TypeValue[] => {
   const patterns = getTypesPatterns(documentType) as TypePattern[]
   return patterns.map(pattern => getTypesValues(pattern, db))
 }

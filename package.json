@@ -1,6 +1,7 @@
 {
   "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "1.0.12",
+  "version": "2.0.0",
+  "type": "module",
   "description": "",
   "keywords": [
     "firebase",
@@ -11,17 +12,8 @@
     "field type",
     "pattern"
   ],
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm5/index.js",
-  "es2015": "./dist/esm/index.js",
-  "types": "index.d.ts",
-  "typesVersions": {
-    ">=4.2": {
-      "*": [
-        "dist/types/*"
-      ]
-    }
-  },
+  "main": "./dist/core.js",
+  "types": "./dist/types.js",
   "engines": {
     "node": ">=18.x"
   },
@@ -39,10 +31,15 @@
     "prettier:check": "prettier --check .",
     "jest": "jest --passWithNoTests --silent false --verbose false",
     "test:jest": "firebase emulators:exec --only firestore \"npm run jest\"",
-    "build:clean": "shx rm -rf ./dist ./core ./types",
-    "build:compile": "tsc -b ./src/tsconfig.cjs.json ./src/tsconfig.esm.json ./src/tsconfig.esm5.json ./src/tsconfig.esm5.rollup.json ./src/tsconfig.types.json",
-    "build:global": "node ./scripts/make-umd-bundle.js && node ./scripts/make-closure-core.js",
-    "build:package": "npm-run-all build:clean build:compile && node ./scripts/prepare-package.js && node ./scripts/generate-alias.js"
+    "build": "run-s build:{lint,jest,clean,tsc,generate}",
+    "build:lint": "npm run lint",
+    "build:jest": "npm run test:jest",
+    "build:clean": "npm run clean",
+    "build:tsc": "npm run tsc",
+    "build:generate": "npm run generate",
+    "clean": "rimraf ./dist ./core ./types",
+    "tsc": "tsc --build tsconfig.publish.json",
+    "generate": "node ./scripts/generate-alias.cjs"
   },
   "repository": {
     "type": "git",
@@ -55,59 +52,46 @@
   },
   "homepage": "https://github.com/cilly-yllic/firestore-document-type-patterns#readme",
   "exports": {
-    ".": {
-      "node": "./dist/cjs/index.js",
-      "default": "./dist/esm5/index.js"
-    },
-    "./core": {
-      "node": "./dist/cjs/core.js",
-      "default": "./dist/esm5/core.js"
-    },
-    "./types": {
-      "node": "./dist/cjs/types.js",
-      "default": "./dist/esm5/types.js"
-    },
-    "./internal/*": {
-      "node": "./dist/cjs/internal/*.js",
-      "default": "./dist/esm5/internal/*.js"
-    },
+    ".": "./dist/**/*.js",
+    "./core": "./dist/core.js",
+    "./types": "./dist/types.js",
     "./package.json": "./package.json"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^5.1.1",
-    "@firebase/rules-unit-testing": "^2.0.4",
+    "@firebase/rules-unit-testing": "^3.0.0",
     "uuid": "^9.0.0",
-    "zx": "^7.1.0"
+    "zx": "^7.2.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-optimizer": "^0.1302.1",
-    "@types/jest": "^29.1.2",
-    "@types/node": "^18.8.3",
-    "@types/uuid": "^8.3.4",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.5.0",
-    "fs-extra": "^10.1.0",
-    "husky": "^8.0.1",
-    "jest": "^29.1.2",
-    "klaw-sync": "^6.0.0",
+    "@babel/core": "^7.22.9",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+    "@babel/preset-env": "^7.22.9",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "babel-jest": "^29.6.1",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "fs-extra": "^11.1.1",
+    "husky": "^8.0.3",
+    "jest": "^29.6.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
+    "prettier": "^3.0.0",
     "shx": "^0.3.4",
-    "ts-jest": "^29.0.3",
-    "typescript": "^4.8.4",
-    "webpack": "^5.74.0"
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
   },
   "files": [
     "!**/__tests__",
     "!src/firestore/**",
-    "dist/cjs/**/!(*.tsbuildinfo)",
-    "dist/esm/**/!(*.tsbuildinfo)",
-    "dist/esm5/**/!(*.tsbuildinfo)",
-    "dist/types/**/!(*.tsbuildinfo)",
+    "dist",
     "core",
     "types",
     "src",

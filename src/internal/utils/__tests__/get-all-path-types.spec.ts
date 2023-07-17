@@ -1,5 +1,5 @@
-import { getAllPathTypes } from '../common'
-import { DocumentType, ALL_FIELD_TYPES, PRIMITIVE_FIELD_TYPES, PathType } from '../../types/field-types'
+import { DocumentType, ALL_FIELD_TYPES, PRIMITIVE_FIELD_TYPES, PathType } from '../../types/field-types.js'
+import { getAllPathTypes } from '../common.js'
 
 describe('get all path types', () => {
   it(`check simple array`, async () => {

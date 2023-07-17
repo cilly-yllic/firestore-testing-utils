@@ -19,6 +19,8 @@ aliasRoot
     fs.ensureDirSync(alias)
   })
 
+const PREFIX = 'dist'
+
 aliasRoot.forEach(alias => {
   const relative = alias
     .split(/\//g)
@@ -26,10 +28,8 @@ aliasRoot.forEach(alias => {
     .join('/')
   const pkgManifest = {
     name: `@cilly-yllic/${alias.split(/\//g).join('-')}`,
-    types: `${relative}/dist/types/${alias}.d.ts`,
-    main: `${relative}/dist/cjs/${alias}.js`,
-    module: `${relative}/dist/esm5/${alias}.js`,
-    es2015: `${relative}/dist/esm/${alias}.js`,
+    types: `${relative}/${PREFIX}/${alias}.d.ts`,
+    main: `${relative}/${PREFIX}/${alias}.js`,
     sideEffects: false,
   }
 

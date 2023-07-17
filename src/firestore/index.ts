@@ -1,7 +1,8 @@
 import { readFileSync } from 'fs'
 import { join } from 'path'
-import { v4 as randomStr } from 'uuid'
+
 import * as firebase from '@firebase/rules-unit-testing'
+import { v4 as randomStr } from 'uuid'
 export const PROJECT_ID = randomStr()
 export const uid = randomStr()
 

@@ -1,5 +1,5 @@
-const core = require('@actions/core')
-const execute = require('../utils/exec')
+import * as core from '@actions/core'
+import { execute } from '../utils/exec.js'
 
 const CI_REG_EXP = /\[ci:[^\]]*]/
 
