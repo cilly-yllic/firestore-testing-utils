@@ -12,7 +12,7 @@ module.exports = {
       {
         tsconfig: 'tsconfig.json',
         useESM: true,
-      }
+      },
     ],
-  }
+  },
 }
