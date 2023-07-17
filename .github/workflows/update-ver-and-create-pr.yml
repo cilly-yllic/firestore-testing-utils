@@ -16,14 +16,14 @@ jobs:
     outputs:
       tag-name: ${{ steps.tag-name.outputs.value }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -62,7 +62,7 @@ jobs:
     needs: update-version
     if: needs.update-version.outputs.tag-name != ''
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # 全タグ・全ブランチ・全履歴を取得
       - run: git fetch --depth=10000 --tags
@@ -76,12 +76,12 @@ jobs:
           echo ::set-output name=tag::$previousTag
 
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version-file: ${{ env.NODE_VERSION_FILE }}
 
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
