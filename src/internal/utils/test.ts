@@ -6,12 +6,14 @@ import { getGeoPoint, getServerTimestamp } from './firestore.js'
 
 export const getFieldDefaultValues = (db: Firestore, isInArray = false) => ({
   string: 'hoge',
-  number: 1,
+  int: 1,
+  float: 1.1,
+  number: -1,
   boolean: true,
   map: {},
-  array: [],
+  list: [],
   null: null,
   timestamp: isInArray ? date : getServerTimestamp(),
-  geopoint: getGeoPoint(1, 1),
-  reference: doc(db, collectionName, documentId),
+  latlng: getGeoPoint(1, 1),
+  path: doc(db, collectionName, documentId),
 })

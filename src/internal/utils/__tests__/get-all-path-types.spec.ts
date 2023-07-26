@@ -1,28 +1,32 @@
 import { DocumentType, ALL_FIELD_TYPES, PRIMITIVE_FIELD_TYPES, PathType } from '../../types/field-types.js'
 import { getAllPathTypes } from '../common.js'
 
-describe('get all path types', () => {
+describe(__filename, () => {
   it(`check simple array`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
-      'array[]': [PRIMITIVE_FIELD_TYPES.string],
+      'list[]': [PRIMITIVE_FIELD_TYPES.string],
     }
     const LIST: PathType[] = [
-      { path: 'array', type: ALL_FIELD_TYPES.string },
-      { path: 'array', type: ALL_FIELD_TYPES.number },
-      { path: 'array', type: ALL_FIELD_TYPES.boolean },
-      { path: 'array', type: ALL_FIELD_TYPES.null },
-      { path: 'array', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'array', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'array', type: ALL_FIELD_TYPES.reference },
-      { path: 'array', type: ALL_FIELD_TYPES.map },
+      { path: 'list', type: ALL_FIELD_TYPES.string },
+      { path: 'list', type: ALL_FIELD_TYPES.number },
+      { path: 'list', type: ALL_FIELD_TYPES.int },
+      { path: 'list', type: ALL_FIELD_TYPES.float },
+      { path: 'list', type: ALL_FIELD_TYPES.boolean },
+      { path: 'list', type: ALL_FIELD_TYPES.null },
+      { path: 'list', type: ALL_FIELD_TYPES.timestamp },
+      { path: 'list', type: ALL_FIELD_TYPES.latlng },
+      { path: 'list', type: ALL_FIELD_TYPES.path },
+      { path: 'list', type: ALL_FIELD_TYPES.map },
       // { path: 'array', value: defaultValues.string },
-      { path: 'array[]', type: ALL_FIELD_TYPES.number },
-      { path: 'array[]', type: ALL_FIELD_TYPES.boolean },
-      { path: 'array[]', type: ALL_FIELD_TYPES.null },
-      { path: 'array[]', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'array[]', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'array[]', type: ALL_FIELD_TYPES.reference },
-      { path: 'array[]', type: ALL_FIELD_TYPES.map },
+      { path: 'list[]', type: ALL_FIELD_TYPES.number },
+      { path: 'list[]', type: ALL_FIELD_TYPES.int },
+      { path: 'list[]', type: ALL_FIELD_TYPES.float },
+      { path: 'list[]', type: ALL_FIELD_TYPES.boolean },
+      { path: 'list[]', type: ALL_FIELD_TYPES.null },
+      { path: 'list[]', type: ALL_FIELD_TYPES.timestamp },
+      { path: 'list[]', type: ALL_FIELD_TYPES.latlng },
+      { path: 'list[]', type: ALL_FIELD_TYPES.path },
+      { path: 'list[]', type: ALL_FIELD_TYPES.map },
     ]
     expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
@@ -38,21 +42,25 @@ describe('get all path types', () => {
     const LIST: PathType[] = [
       { path: 'map', type: ALL_FIELD_TYPES.string },
       { path: 'map', type: ALL_FIELD_TYPES.number },
+      { path: 'map', type: ALL_FIELD_TYPES.int },
+      { path: 'map', type: ALL_FIELD_TYPES.float },
       { path: 'map', type: ALL_FIELD_TYPES.boolean },
       { path: 'map', type: ALL_FIELD_TYPES.null },
       { path: 'map', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'map', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'map', type: ALL_FIELD_TYPES.reference },
-      { path: 'map', type: ALL_FIELD_TYPES.array },
+      { path: 'map', type: ALL_FIELD_TYPES.latlng },
+      { path: 'map', type: ALL_FIELD_TYPES.path },
+      { path: 'map', type: ALL_FIELD_TYPES.list },
 
       { path: 'map.string', type: ALL_FIELD_TYPES.number },
+      { path: 'map.string', type: ALL_FIELD_TYPES.int },
+      { path: 'map.string', type: ALL_FIELD_TYPES.float },
       { path: 'map.string', type: ALL_FIELD_TYPES.boolean },
       { path: 'map.string', type: ALL_FIELD_TYPES.null },
       { path: 'map.string', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'map.string', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'map.string', type: ALL_FIELD_TYPES.reference },
+      { path: 'map.string', type: ALL_FIELD_TYPES.latlng },
+      { path: 'map.string', type: ALL_FIELD_TYPES.path },
       { path: 'map.string', type: ALL_FIELD_TYPES.map },
-      { path: 'map.string', type: ALL_FIELD_TYPES.array },
+      { path: 'map.string', type: ALL_FIELD_TYPES.list },
     ]
     expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
@@ -61,36 +69,42 @@ describe('get all path types', () => {
     const DOCUMENT_TYPE: DocumentType = {
       map: [
         {
-          'array[]': [PRIMITIVE_FIELD_TYPES.string],
+          'list[]': [PRIMITIVE_FIELD_TYPES.string],
         },
       ],
     }
     const LIST: PathType[] = [
       { path: 'map', type: ALL_FIELD_TYPES.string },
       { path: 'map', type: ALL_FIELD_TYPES.number },
+      { path: 'map', type: ALL_FIELD_TYPES.int },
+      { path: 'map', type: ALL_FIELD_TYPES.float },
       { path: 'map', type: ALL_FIELD_TYPES.boolean },
       { path: 'map', type: ALL_FIELD_TYPES.null },
       { path: 'map', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'map', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'map', type: ALL_FIELD_TYPES.reference },
-      { path: 'map', type: ALL_FIELD_TYPES.array },
+      { path: 'map', type: ALL_FIELD_TYPES.latlng },
+      { path: 'map', type: ALL_FIELD_TYPES.path },
+      { path: 'map', type: ALL_FIELD_TYPES.list },
 
-      { path: 'map.array', type: ALL_FIELD_TYPES.string },
-      { path: 'map.array', type: ALL_FIELD_TYPES.number },
-      { path: 'map.array', type: ALL_FIELD_TYPES.boolean },
-      { path: 'map.array', type: ALL_FIELD_TYPES.null },
-      { path: 'map.array', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'map.array', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'map.array', type: ALL_FIELD_TYPES.reference },
-      { path: 'map.array', type: ALL_FIELD_TYPES.map },
+      { path: 'map.list', type: ALL_FIELD_TYPES.string },
+      { path: 'map.list', type: ALL_FIELD_TYPES.number },
+      { path: 'map.list', type: ALL_FIELD_TYPES.int },
+      { path: 'map.list', type: ALL_FIELD_TYPES.float },
+      { path: 'map.list', type: ALL_FIELD_TYPES.boolean },
+      { path: 'map.list', type: ALL_FIELD_TYPES.null },
+      { path: 'map.list', type: ALL_FIELD_TYPES.timestamp },
+      { path: 'map.list', type: ALL_FIELD_TYPES.latlng },
+      { path: 'map.list', type: ALL_FIELD_TYPES.path },
+      { path: 'map.list', type: ALL_FIELD_TYPES.map },
 
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.number },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.boolean },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.null },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.timestamp },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.geopoint },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.reference },
-      { path: 'map.array[]', type: ALL_FIELD_TYPES.map },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.number },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.int },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.float },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.boolean },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.null },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.timestamp },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.latlng },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.path },
+      { path: 'map.list[]', type: ALL_FIELD_TYPES.map },
     ]
     expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
