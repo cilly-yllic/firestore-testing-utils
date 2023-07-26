@@ -10,20 +10,32 @@ export const date = new Date()
 export const PRIMITIVE_FIELD_TYPES = {
   string: 'string',
   number: 'number',
+  int: 'int',
+  float: 'float',
   boolean: 'boolean',
   null: 'null',
   timestamp: 'timestamp',
-  geopoint: 'geopoint',
-  reference: 'reference',
+  latlng: 'latlng',
+  path: 'path',
 }
 export const ALL_FIELD_TYPES = {
   ...PRIMITIVE_FIELD_TYPES,
   map: 'map',
-  array: 'array',
+  list: 'list',
 }
 
 export type PrimitiveFieldTypes = (typeof PRIMITIVE_FIELD_TYPES)[keyof typeof PRIMITIVE_FIELD_TYPES]
 export type AllFieldTypes = (typeof ALL_FIELD_TYPES)[keyof typeof ALL_FIELD_TYPES]
+
+type Inclusions = {
+  [type in AllFieldTypes]: AllFieldTypes[]
+}
+export const INCLUSIONS: Inclusions = {
+  number: [ALL_FIELD_TYPES.number, ALL_FIELD_TYPES.int, ALL_FIELD_TYPES.float],
+  int: [ALL_FIELD_TYPES.number, ALL_FIELD_TYPES.int],
+  float: [ALL_FIELD_TYPES.number, ALL_FIELD_TYPES.float],
+}
+
 export type FieldType = PrimitiveFieldTypes | FieldMap
 
 export type ArrayField<T = DocumentData> = `${Extract<keyof T, string>}[]`
@@ -46,12 +58,6 @@ export interface TypePattern {
 export interface PathType {
   path: string
   type: AllFieldTypes
-}
-
-export interface DeepestPattern {
-  index: number
-  count: number
-  pattern: TypePattern
 }
 
 export type Value =

@@ -6,14 +6,16 @@ import { getFieldDefaultValues } from '../utils/test.js'
 const ARRAY = [
   // PRIMITIVE_FIELD_TYPES.string,
   PRIMITIVE_FIELD_TYPES.number,
+  PRIMITIVE_FIELD_TYPES.int,
+  PRIMITIVE_FIELD_TYPES.float,
   PRIMITIVE_FIELD_TYPES.boolean,
   PRIMITIVE_FIELD_TYPES.null,
   PRIMITIVE_FIELD_TYPES.timestamp,
-  PRIMITIVE_FIELD_TYPES.geopoint,
-  PRIMITIVE_FIELD_TYPES.reference,
+  PRIMITIVE_FIELD_TYPES.latlng,
+  PRIMITIVE_FIELD_TYPES.path,
 ]
 
-describe('get wrong type values', () => {
+describe(__filename, () => {
   it(`simple string`, async () => {
     const DOCUMENT_TYPE = {
       string: ARRAY,
@@ -28,7 +30,7 @@ describe('get wrong type values', () => {
         string: defaultValues.map,
       },
       {
-        string: defaultValues.array,
+        string: defaultValues.list,
       },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
@@ -36,21 +38,23 @@ describe('get wrong type values', () => {
 
   it(`simple array`, async () => {
     const DOCUMENT_TYPE = {
-      'array[]': ARRAY,
+      'list[]': ARRAY,
     }
     const db = await getDb()
     const defaultValues = getFieldDefaultValues(db)
     const LIST = [
-      { array: defaultValues.string },
-      { array: defaultValues.number },
-      { array: defaultValues.boolean },
-      { array: defaultValues.null },
-      { array: defaultValues.timestamp },
-      { array: defaultValues.geopoint },
-      { array: defaultValues.reference },
-      { array: defaultValues.map },
-      { array: [defaultValues.string] },
-      { array: [defaultValues.map] },
+      { list: defaultValues.string },
+      { list: defaultValues.number },
+      { list: defaultValues.int },
+      { list: defaultValues.float },
+      { list: defaultValues.boolean },
+      { list: defaultValues.null },
+      { list: defaultValues.timestamp },
+      { list: defaultValues.latlng },
+      { list: defaultValues.path },
+      { list: defaultValues.map },
+      { list: [defaultValues.string] },
+      { list: [defaultValues.map] },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
@@ -66,21 +70,182 @@ describe('get wrong type values', () => {
     const LIST = [
       { map: defaultValues.string },
       { map: defaultValues.number },
+      { map: defaultValues.int },
+      { map: defaultValues.float },
       { map: defaultValues.boolean },
       { map: defaultValues.null },
       { map: defaultValues.timestamp },
-      { map: defaultValues.geopoint },
-      { map: defaultValues.reference },
-      { map: defaultValues.array },
+      { map: defaultValues.latlng },
+      { map: defaultValues.path },
+      { map: defaultValues.list },
 
       { map: { number: defaultValues.string } },
       { map: { number: defaultValues.boolean } },
       { map: { number: defaultValues.null } },
       { map: { number: defaultValues.timestamp } },
-      { map: { number: defaultValues.geopoint } },
-      { map: { number: defaultValues.reference } },
+      { map: { number: defaultValues.latlng } },
+      { map: { number: defaultValues.path } },
       { map: { number: defaultValues.map } },
-      { map: { number: defaultValues.array } },
+      { map: { number: defaultValues.list } },
+    ]
+    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+  })
+})
+
+describe(`${__filename} (specific)`, () => {
+  it(`simple string`, async () => {
+    const DOCUMENT_TYPE = {
+      specific: ['foo', PRIMITIVE_FIELD_TYPES.string],
+      string: PRIMITIVE_FIELD_TYPES.string,
+    }
+    const db = await getDb()
+    const defaultValues = getFieldDefaultValues(db)
+    const LIST = [
+      {
+        specific: defaultValues.number,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.int,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.float,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.boolean,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.null,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.timestamp,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.latlng,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.path,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.map,
+        string: defaultValues.string,
+      },
+      {
+        specific: defaultValues.list,
+        string: defaultValues.string,
+      },
+
+      {
+        specific: 'foo',
+        string: defaultValues.number,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.int,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.float,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.boolean,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.null,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.timestamp,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.latlng,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.path,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.map,
+      },
+      {
+        specific: 'foo',
+        string: defaultValues.list,
+      },
+
+      {
+        specific: defaultValues.string,
+        string: defaultValues.number,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.int,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.float,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.boolean,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.null,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.timestamp,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.latlng,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.path,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.map,
+      },
+      {
+        specific: defaultValues.string,
+        string: defaultValues.list,
+      },
+    ]
+    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+  })
+
+  it(`simple array`, async () => {
+    const DOCUMENT_TYPE = {
+      'list[]': [...ARRAY, 'foo'],
+    }
+    const db = await getDb()
+    const defaultValues = getFieldDefaultValues(db)
+    const LIST = [
+      { list: defaultValues.string },
+      { list: defaultValues.number },
+      { list: defaultValues.int },
+      { list: defaultValues.float },
+      { list: defaultValues.boolean },
+      { list: defaultValues.null },
+      { list: defaultValues.timestamp },
+      { list: defaultValues.latlng },
+      { list: defaultValues.path },
+      { list: defaultValues.map },
+      { list: [defaultValues.string] },
+      { list: [defaultValues.map] },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
