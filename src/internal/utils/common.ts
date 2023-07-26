@@ -1,4 +1,3 @@
-// import '@firebase/rules-unit-testing'
 import { doc } from 'firebase/firestore'
 
 import {
@@ -7,6 +6,7 @@ import {
   documentId,
   date,
   ALL_FIELD_TYPES,
+  INCLUSIONS,
   AllFieldTypes,
   DocumentType,
   TypePattern,
@@ -16,7 +16,7 @@ import {
   Value,
   PathType,
   TypeValue,
-  DeepestPattern,
+  FieldMap,
 } from '../types/field-types.js'
 
 import { getGeoPoint, getServerTimestamp } from './firestore.js'
@@ -27,36 +27,43 @@ export const getTypeValue = (type: AllFieldTypes, db?: Firestore, isInArray = fa
     throw new Error('need type')
   }
   switch (type) {
-    default:
     case ALL_FIELD_TYPES.string:
       return 'hoge'
-    case ALL_FIELD_TYPES.number:
+    case ALL_FIELD_TYPES.int:
       return 1
+    case ALL_FIELD_TYPES.float:
+      return 1.1
+    case ALL_FIELD_TYPES.number:
+      return -1
     case ALL_FIELD_TYPES.boolean:
       return true
     case ALL_FIELD_TYPES.map:
       return {}
-    case ALL_FIELD_TYPES.array:
+    case ALL_FIELD_TYPES.list:
       return []
     case ALL_FIELD_TYPES.null:
       return null
     case ALL_FIELD_TYPES.timestamp:
       return isInArray ? date : getServerTimestamp()
-    // return 'timestampValue'
-    case ALL_FIELD_TYPES.geopoint:
+    case ALL_FIELD_TYPES.latlng:
       return getGeoPoint(1, 1)
-    // return 'geopointValue'
-    case ALL_FIELD_TYPES.reference:
+    case ALL_FIELD_TYPES.path:
       if (!db) {
         throw new Error('need db')
       }
       return doc(db, collectionName, documentId)
-    // return 'referenceValue'
+    default:
+      return type
   }
 }
 
 export const getLeftTypes = (types: AllFieldTypes[]): AllFieldTypes[] =>
-  Object.values(ALL_FIELD_TYPES).filter(TYPE => types.every(type => TYPE !== type))
+  Object.values(ALL_FIELD_TYPES).filter(TYPE => {
+    if (TYPE in INCLUSIONS && INCLUSIONS[TYPE].length > 0) {
+      return types.every(type => !INCLUSIONS[TYPE].includes(type))
+    }
+    return types.every(type => TYPE !== type)
+  })
 export const getLeftTypeValues = (types: AllFieldTypes[], db?: Firestore): Value[] =>
   getLeftTypes(types).map(TYPE => getTypeValue(TYPE, db))
 
@@ -79,30 +86,46 @@ export const updateObjProp = (obj: Obj, value: string, propPath: string) => {
   }
 }
 
-// some how idea shows type error, but jest accept this method. then i just leave this.
-export const getTypesPatterns = (documentType: DocumentType): TypePattern[] | [FieldType] => {
-  return Object.entries(documentType).reduce((objectsAcc: TypePattern[], [fieldName, _types]) => {
-    const types = (isArray(_types) ? _types : [_types]) as FieldType[]
-    const patterns = types.reduce((typesAcc: TypePattern[], type) => {
-      const pattern = isObject(type) ? (getTypesPatterns(type as DocumentType)[0] as FieldType) : type
-      typesAcc.push({ [fieldName.replace(/\[\]$/, '')]: fieldName.endsWith('[]') ? [pattern] : pattern })
-      return typesAcc
-    }, [])
-    if (objectsAcc.length) {
-      objectsAcc = objectsAcc.reduce((acc: TypePattern[], obj) => {
-        patterns.forEach(pattern => {
-          Object.entries(pattern).forEach(([key, value]) => {
-            obj[key.replace(/\[\]$/, '')] = value
-          })
-          acc.push(copy(obj))
-        })
-        return acc
-      }, [])
-    } else {
-      objectsAcc = patterns
+const removeListSuffix = (str: string) => str.replace(/\[\]$/, '')
+
+export const getFieldTypesPatterns = (fieldTypes: DocumentType | FieldType | FieldType[]): FieldType[] => {
+  let typePatterns: FieldType[] = []
+  if (isArray(fieldTypes)) {
+    for (const fieldType of fieldTypes as FieldType[]) {
+      for (const pattern of getFieldTypesPatterns(fieldType)) {
+        typePatterns.push(pattern)
+      }
     }
-    return objectsAcc
-  }, [])
+    return typePatterns
+  }
+  if (isObject(fieldTypes)) {
+    for (const [field, fieldType] of Object.entries(fieldTypes as FieldMap)) {
+      const patterns = []
+      for (const _fieldType of getFieldTypesPatterns(fieldType)) {
+        patterns.push(_fieldType)
+      }
+      if (!typePatterns.length) {
+        for (const pattern of patterns) {
+          typePatterns.push({
+            [removeListSuffix(field)]: field.endsWith('[]') ? [pattern] : pattern,
+          })
+        }
+      } else {
+        const mergedTypePatterns: FieldType[] = []
+        for (const typePattern of typePatterns) {
+          for (const pattern of patterns) {
+            mergedTypePatterns.push({
+              ...(typePattern as FieldMap),
+              [removeListSuffix(field)]: field.endsWith('[]') ? [pattern] : pattern,
+            })
+          }
+        }
+        typePatterns = mergedTypePatterns
+      }
+    }
+    return typePatterns
+  }
+  return [fieldTypes as FieldType]
 }
 
 export const getTypesValues = (pattern: TypePattern, db?: Firestore, isInArray = false): TypeValue | TypePattern => {
@@ -125,6 +148,7 @@ export const getTypesValues = (pattern: TypePattern, db?: Firestore, isInArray =
   }, {})
 }
 
+// TODO MS (more simple) & rename to [getAllTheOtherFieldTypes]
 export const getAllPathTypes = (documentType: DocumentType, path = ''): PathType[] => {
   return Object.entries(documentType).reduce((acc: PathType[], [fieldName, _types]) => {
     const currentPath = `${path}.${fieldName}`.replace(/^\./, '')
@@ -145,9 +169,9 @@ export const getAllPathTypes = (documentType: DocumentType, path = ''): PathType
       primitiveTypes.push(ALL_FIELD_TYPES.map)
     }
     if (fieldName.endsWith('[]')) {
-      primitiveTypes.push(ALL_FIELD_TYPES.array)
+      primitiveTypes.push(ALL_FIELD_TYPES.list)
       acc = acc.concat(
-        getLeftTypes([ALL_FIELD_TYPES.array]).map(type => ({ path: currentPath.replace(/\[\]$/, ''), type }))
+        getLeftTypes([ALL_FIELD_TYPES.list]).map(type => ({ path: currentPath.replace(/\[\]$/, ''), type }))
       )
     }
 
@@ -159,34 +183,4 @@ export const getAllPathTypes = (documentType: DocumentType, path = ''): PathType
     )
     return acc
   }, [])
-}
-
-export const getObjectCount = (pattern: TypePattern) => {
-  return Object.entries(pattern).reduce((acc, [_fieldName, type]) => {
-    if (isObject(type)) {
-      acc++
-      acc += getObjectCount(type as TypePattern)
-    } else if (isArray(type) && isObject((type as PatternType[])[0])) {
-      acc++
-      acc += getObjectCount((type as PatternType[])[0] as TypePattern)
-    }
-    return acc
-  }, 0)
-}
-
-export const getDeepestPattern = (patterns: TypePattern[]): DeepestPattern => {
-  return patterns.reduce(
-    (acc: DeepestPattern, pattern, index) => {
-      const count = getObjectCount(pattern)
-      if (count >= acc.count) {
-        acc = {
-          index,
-          count,
-          pattern,
-        }
-      }
-      return acc
-    },
-    { index: -1, count: 0, pattern: {} }
-  )
 }

@@ -76,14 +76,16 @@ describe('', () => {
 | Field type | rule         | name                      |
 | ---------- | ------------ | ------------------------- |
 | string     | is string    | ALL_FIELD_TYPES.string    |
-| number     | is int       | ALL_FIELD_TYPES.number    |
+| number     | is number    | ALL_FIELD_TYPES.number    |
+| int        | is int       | ALL_FIELD_TYPES.int       |
+| float      | is float     | ALL_FIELD_TYPES.float     |
 | boolean    | is bool      | ALL_FIELD_TYPES.boolean   |
 | map        | is map       | ALL_FIELD_TYPES.map       |
-| array      | is list      | ALL_FIELD_TYPES.array     |
+| list       | is list      | ALL_FIELD_TYPES.list      |
 | null       | == null      | ALL_FIELD_TYPES.null      |
 | timestamp  | is timestamp | ALL_FIELD_TYPES.timestamp |
-| geopoint   | is latlng    | ALL_FIELD_TYPES.geopoint  |
-| reference  | is path      | ALL_FIELD_TYPES.reference |
+| latlng     | is latlng    | ALL_FIELD_TYPES.latlng    |
+| path       | is path      | ALL_FIELD_TYPES.path      |
 
 ## DocumentType Rule
 
@@ -113,7 +115,9 @@ const documentTypes: DocumentType = {
 
 ```text
 [
+  { uid: -1 },
   { uid: 1 },
+  { uid: 1.1 },
   { uid: true },
   { uid: {} },
   { uid: [] },
@@ -164,6 +168,12 @@ const documentTypes: DocumentType = {
   { uid: 1, createdAt: FieldValue },
   { uid: 1, createdAt: null },
 
+  { uid: -1, createdAt: FieldValue },
+  { uid: -1, createdAt: null },
+
+  { uid: 1.1, createdAt: FieldValue },
+  { uid: 1.1, createdAt: null },
+
   { uid: true, createdAt: FieldValue },
   { uid: true, createdAt: null },
 
@@ -186,7 +196,9 @@ const documentTypes: DocumentType = {
   { uid: DocumentReference<DocumentData>, createdAt: null },
 
   { uid: 'hoge', createdAt: 'hoge' },
+  { uid: 'hoge', createdAt: -1 },
   { uid: 'hoge', createdAt: 1 },
+  { uid: 'hoge', createdAt: 1.1 },
   { uid: 'hoge', createdAt: true },
   { uid: 'hoge', createdAt: {} },
   { uid: 'hoge', createdAt: [] },
@@ -223,7 +235,9 @@ const documentTypes: DocumentType = {
 
 ```text
 [
+  { tags: [-1] },
   { tags: [1] },
+  { tags: [1.1] },
   { tags: [true] },
   { tags: [{}] },
   { tags: [null] },
@@ -268,7 +282,9 @@ const documentTypes: DocumentType = {
 ```text
 [
   { map: { uid: 'hoge' } },
+  { map: { uid: -1 } },
   { map: { uid: 1 } },
+  { map: { uid: 1.1 } },
   { map: { uid: true } },
   { map: { uid: {} },
   { map: { uid: [] } },
@@ -290,11 +306,11 @@ const documentTypes: DocumentType = {
     ALL_FIELD_TYPES.number,
     {
       uid: ALL_FIELD_TYPES.string,
-      'arr[]': ALL_FIELD_TYPES.boolean,
+      'list[]': ALL_FIELD_TYPES.boolean,
     },
   ],
   map: {
-    'arr[]': [ALL_FIELD_TYPES.boolean, ALL_FIELD_TYPES.number],
+    'list[]': [ALL_FIELD_TYPES.boolean, ALL_FIELD_TYPES.number],
     nestedMap: [
       ALL_FIELD_TYPES.null,
       {
@@ -309,3 +325,22 @@ const documentTypes: DocumentType = {
 
 > usually use serverTimestamp(), but use new Date() in Array
 > because FieldValue.serverTimestamp() is not currently supported inside array.
+
+### number, int, float
+
+```txt
+number's concept include int and float
+```
+
+ex:
+
+```txt
+int: allow 1 and -1, reject 1.1 and -1.1
+float: allow 1.1 and -1.1, reject 1 and -1
+number: allow all these above (1, -1, 1.1, and -1.1)
+```
+
+```txt
+then, wrong type of number not contain int or float neither.
+and also wrong type of (int / float) not contain number.
+```
