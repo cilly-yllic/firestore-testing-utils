@@ -57,6 +57,23 @@ export const getTypeValue = (type: AllFieldTypes, db?: Firestore, isInArray = fa
   }
 }
 
+export const hasKey = (pattern: TypePattern, path: string) => {
+  if (!isObject(pattern)) {
+    return false
+  }
+  let current = copy(pattern)
+  for (const key of path.split('.')) {
+    if (!isObject(current)) {
+      return false
+    }
+    if (!(key in (current || {}))) {
+      return false
+    }
+    current = current[key]
+  }
+  return true
+}
+
 export const getLeftTypes = (types: AllFieldTypes[]): AllFieldTypes[] =>
   Object.values(ALL_FIELD_TYPES).filter(TYPE => {
     if (TYPE in INCLUSIONS && INCLUSIONS[TYPE].length > 0) {
