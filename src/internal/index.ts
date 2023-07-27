@@ -1,18 +1,7 @@
 import { Firestore, DocumentType, TypePattern, TypeValue } from './types/field-types.js'
-import { getTypesValues, getAllPathTypes, updateObjProp, copy, getFieldTypesPatterns } from './utils/common.js'
+import { getTypesValues, getAllPathTypes, updateObjProp, copy, getFieldTypesPatterns, hasKey } from './utils/common.js'
 
 export { getTypeValue, getTypesValues, getFieldTypesPatterns } from './utils/common.js'
-
-const hasKey = (pattern: TypePattern, path: string) => {
-  let current = copy(pattern)
-  for (const key of path.split('.')) {
-    if (!(key in current)) {
-      return false
-    }
-    current = current[key]
-  }
-  return true
-}
 
 export const getRecursiveWrongTypes = (documentType: DocumentType) => {
   const patterns = getFieldTypesPatterns(documentType) as TypePattern[]
