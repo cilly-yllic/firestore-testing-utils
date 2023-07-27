@@ -6,7 +6,7 @@ export { getTypeValue, getTypesValues, getFieldTypesPatterns } from './utils/com
 const hasKey = (pattern: TypePattern, path: string) => {
   let current = copy(pattern)
   for (const key of path.split('.')) {
-    if (!(key in current)) {
+    if (!(key in current || {})) {
       return false
     }
     current = current[key]
