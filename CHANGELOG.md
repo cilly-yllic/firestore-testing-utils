@@ -1,3 +1,12 @@
+# 3.1.0
+
+## Breaking Changes
+
+###
+
+- rename type param
+  - boolean to bool
+
 # 3.0.0
 
 ## Breaking Changes
