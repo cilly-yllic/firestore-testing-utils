@@ -79,7 +79,7 @@ describe('', () => {
 | number     | is number    | ALL_FIELD_TYPES.number    |
 | int        | is int       | ALL_FIELD_TYPES.int       |
 | float      | is float     | ALL_FIELD_TYPES.float     |
-| boolean    | is bool      | ALL_FIELD_TYPES.boolean   |
+| bool       | is bool      | ALL_FIELD_TYPES.bool      |
 | map        | is map       | ALL_FIELD_TYPES.map       |
 | list       | is list      | ALL_FIELD_TYPES.list      |
 | null       | == null      | ALL_FIELD_TYPES.null      |
@@ -295,6 +295,51 @@ const documentTypes: DocumentType = {
 ]
 ```
 
+### Ex5: Specific Value
+
+```firebase_rules
+function isStatus(status) {
+    return status == 'success' || status == 'error';
+}
+function hasStatusKey(data) {
+  return 'status' in data && isStatus(data.status);
+}
+```
+
+```ts
+const documentTypes: DocumentType = {
+  status: ['success', 'error'],
+}
+```
+
+`getTypesPatterns`
+
+```text
+[
+  { status: 'success' },
+  { status: 'error' },
+]
+```
+
+`getRecursiveWrongTypes`
+
+```text
+[
+  { status: 'hoge' },
+  { status: -1 },
+  { status: 1 },
+  { status: 1.1 },
+  { status: true },
+  { status: {} },
+  { status: [] },
+  { status: null },
+  { status: FieldValue },
+  { status: GeoPoint },
+  { status: DocumentReference<DocumentData> },
+
+]
+```
+
 ## Tips
 
 Might be work
@@ -306,11 +351,11 @@ const documentTypes: DocumentType = {
     ALL_FIELD_TYPES.number,
     {
       uid: ALL_FIELD_TYPES.string,
-      'list[]': ALL_FIELD_TYPES.boolean,
+      'list[]': ALL_FIELD_TYPES.bool,
     },
   ],
   map: {
-    'list[]': [ALL_FIELD_TYPES.boolean, ALL_FIELD_TYPES.number],
+    'list[]': [ALL_FIELD_TYPES.bool, ALL_FIELD_TYPES.number],
     nestedMap: [
       ALL_FIELD_TYPES.null,
       {

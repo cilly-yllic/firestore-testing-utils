@@ -8,7 +8,7 @@ const ARRAY = [
   PRIMITIVE_FIELD_TYPES.number,
   PRIMITIVE_FIELD_TYPES.int,
   PRIMITIVE_FIELD_TYPES.float,
-  PRIMITIVE_FIELD_TYPES.boolean,
+  PRIMITIVE_FIELD_TYPES.bool,
   PRIMITIVE_FIELD_TYPES.null,
   PRIMITIVE_FIELD_TYPES.timestamp,
   PRIMITIVE_FIELD_TYPES.latlng,
@@ -47,7 +47,7 @@ describe(__filename, () => {
       { list: defaultValues.number },
       { list: defaultValues.int },
       { list: defaultValues.float },
-      { list: defaultValues.boolean },
+      { list: defaultValues.bool },
       { list: defaultValues.null },
       { list: defaultValues.timestamp },
       { list: defaultValues.latlng },
@@ -72,7 +72,7 @@ describe(__filename, () => {
       { map: defaultValues.number },
       { map: defaultValues.int },
       { map: defaultValues.float },
-      { map: defaultValues.boolean },
+      { map: defaultValues.bool },
       { map: defaultValues.null },
       { map: defaultValues.timestamp },
       { map: defaultValues.latlng },
@@ -80,7 +80,7 @@ describe(__filename, () => {
       { map: defaultValues.list },
 
       { map: { number: defaultValues.string } },
-      { map: { number: defaultValues.boolean } },
+      { map: { number: defaultValues.bool } },
       { map: { number: defaultValues.null } },
       { map: { number: defaultValues.timestamp } },
       { map: { number: defaultValues.latlng } },
@@ -114,7 +114,7 @@ describe(`${__filename} (specific)`, () => {
         string: defaultValues.string,
       },
       {
-        specific: defaultValues.boolean,
+        specific: defaultValues.bool,
         string: defaultValues.string,
       },
       {
@@ -156,7 +156,7 @@ describe(`${__filename} (specific)`, () => {
       },
       {
         specific: 'foo',
-        string: defaultValues.boolean,
+        string: defaultValues.bool,
       },
       {
         specific: 'foo',
@@ -197,7 +197,7 @@ describe(`${__filename} (specific)`, () => {
       },
       {
         specific: defaultValues.string,
-        string: defaultValues.boolean,
+        string: defaultValues.bool,
       },
       {
         specific: defaultValues.string,
@@ -238,7 +238,7 @@ describe(`${__filename} (specific)`, () => {
       { list: defaultValues.number },
       { list: defaultValues.int },
       { list: defaultValues.float },
-      { list: defaultValues.boolean },
+      { list: defaultValues.bool },
       { list: defaultValues.null },
       { list: defaultValues.timestamp },
       { list: defaultValues.latlng },
