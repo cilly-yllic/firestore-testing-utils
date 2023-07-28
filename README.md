@@ -295,6 +295,51 @@ const documentTypes: DocumentType = {
 ]
 ```
 
+### Ex5: Specific Value
+
+```firebase_rules
+function isStatus(status) {
+    return status == 'success' || status == 'error';
+}
+function hasStatusKey(data) {
+  return 'status' in data && isStatus(data.status);
+}
+```
+
+```ts
+const documentTypes: DocumentType = {
+  status: ['success', 'error'],
+}
+```
+
+`getTypesPatterns`
+
+```text
+[
+  { status: 'success' },
+  { status: 'error' },
+]
+```
+
+`getRecursiveWrongTypes`
+
+```text
+[
+  { status: 'hoge' },
+  { status: -1 },
+  { status: 1 },
+  { status: 1.1 },
+  { status: true },
+  { status: {} },
+  { status: [] },
+  { status: null },
+  { status: FieldValue },
+  { status: GeoPoint },
+  { status: DocumentReference<DocumentData> },
+
+]
+```
+
 ## Tips
 
 Might be work
