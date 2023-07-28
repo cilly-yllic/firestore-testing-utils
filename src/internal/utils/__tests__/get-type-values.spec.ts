@@ -11,7 +11,7 @@ describe(__filename, () => {
       },
       list: [
         {
-          boolean: PRIMITIVE_FIELD_TYPES.boolean,
+          bool: PRIMITIVE_FIELD_TYPES.bool,
           list: [PRIMITIVE_FIELD_TYPES.latlng],
           path: PRIMITIVE_FIELD_TYPES.path,
         },
@@ -25,7 +25,7 @@ describe(__filename, () => {
       },
       list: [
         {
-          boolean: defaultValues.boolean,
+          bool: defaultValues.bool,
           list: [defaultValues.latlng],
           path: defaultValues.path,
         },

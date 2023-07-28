@@ -9,7 +9,7 @@ export const getFieldDefaultValues = (db: Firestore, isInArray = false) => ({
   int: 1,
   float: 1.1,
   number: -1,
-  boolean: true,
+  bool: true,
   map: {},
   list: [],
   null: null,

@@ -1,3 +1,12 @@
+# 3.1.0
+
+## Breaking Changes
+
+###
+
+- rename type param
+  - boolean to bool
+
 # 3.0.0
 
 ## Breaking Changes
@@ -8,6 +17,7 @@
   - int
   - float
   - before: number means 'is int', after number means 'is number'
+  - [specific value](https://github.com/cilly-yllic/firestore-document-type-patterns#ex5-specific-value)
 - Renamed type
   - geojson to latlng
   - array to list

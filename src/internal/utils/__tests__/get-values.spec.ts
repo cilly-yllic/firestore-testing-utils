@@ -18,8 +18,8 @@ describe(__filename, () => {
   it(`is ${PRIMITIVE_FIELD_TYPES.float}`, () => {
     expect(getTypeValue(PRIMITIVE_FIELD_TYPES.float)).toBe(1.1)
   })
-  it(`is ${PRIMITIVE_FIELD_TYPES.boolean}`, () => {
-    expect(getTypeValue(PRIMITIVE_FIELD_TYPES.boolean)).toBe(true)
+  it(`is ${PRIMITIVE_FIELD_TYPES.bool}`, () => {
+    expect(getTypeValue(PRIMITIVE_FIELD_TYPES.bool)).toBe(true)
   })
   it(`is ${PRIMITIVE_FIELD_TYPES.null}`, () => {
     expect(getTypeValue(PRIMITIVE_FIELD_TYPES.null)).toBe(null)
