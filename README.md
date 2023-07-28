@@ -79,7 +79,7 @@ describe('', () => {
 | number     | is number    | ALL_FIELD_TYPES.number    |
 | int        | is int       | ALL_FIELD_TYPES.int       |
 | float      | is float     | ALL_FIELD_TYPES.float     |
-| boolean    | is bool      | ALL_FIELD_TYPES.boolean   |
+| bool       | is bool      | ALL_FIELD_TYPES.bool      |
 | map        | is map       | ALL_FIELD_TYPES.map       |
 | list       | is list      | ALL_FIELD_TYPES.list      |
 | null       | == null      | ALL_FIELD_TYPES.null      |
@@ -306,11 +306,11 @@ const documentTypes: DocumentType = {
     ALL_FIELD_TYPES.number,
     {
       uid: ALL_FIELD_TYPES.string,
-      'list[]': ALL_FIELD_TYPES.boolean,
+      'list[]': ALL_FIELD_TYPES.bool,
     },
   ],
   map: {
-    'list[]': [ALL_FIELD_TYPES.boolean, ALL_FIELD_TYPES.number],
+    'list[]': [ALL_FIELD_TYPES.bool, ALL_FIELD_TYPES.number],
     nestedMap: [
       ALL_FIELD_TYPES.null,
       {

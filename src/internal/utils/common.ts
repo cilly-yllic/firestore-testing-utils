@@ -35,7 +35,7 @@ export const getTypeValue = (type: AllFieldTypes, db?: Firestore, isInArray = fa
       return 1.1
     case ALL_FIELD_TYPES.number:
       return -1
-    case ALL_FIELD_TYPES.boolean:
+    case ALL_FIELD_TYPES.bool:
       return true
     case ALL_FIELD_TYPES.map:
       return {}

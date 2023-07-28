@@ -41,7 +41,7 @@ describe(__filename, () => {
       'list[]': [
         PRIMITIVE_FIELD_TYPES.number,
         {
-          boolean: [PRIMITIVE_FIELD_TYPES.boolean],
+          bool: [PRIMITIVE_FIELD_TYPES.bool],
           'list[]': [PRIMITIVE_FIELD_TYPES.latlng],
           path: [PRIMITIVE_FIELD_TYPES.path],
         },
@@ -56,7 +56,7 @@ describe(__filename, () => {
         string: PRIMITIVE_FIELD_TYPES.string,
         list: [
           {
-            boolean: PRIMITIVE_FIELD_TYPES.boolean,
+            bool: PRIMITIVE_FIELD_TYPES.bool,
             list: [PRIMITIVE_FIELD_TYPES.latlng],
             path: PRIMITIVE_FIELD_TYPES.path,
           },
@@ -74,7 +74,7 @@ describe(__filename, () => {
         },
         list: [
           {
-            boolean: PRIMITIVE_FIELD_TYPES.boolean,
+            bool: PRIMITIVE_FIELD_TYPES.bool,
             list: [PRIMITIVE_FIELD_TYPES.latlng],
             path: PRIMITIVE_FIELD_TYPES.path,
           },

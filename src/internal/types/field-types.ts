@@ -12,7 +12,7 @@ export const PRIMITIVE_FIELD_TYPES = {
   number: 'number',
   int: 'int',
   float: 'float',
-  boolean: 'boolean',
+  bool: 'bool',
   null: 'null',
   timestamp: 'timestamp',
   latlng: 'latlng',
