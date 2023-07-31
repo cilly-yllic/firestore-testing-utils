@@ -26,7 +26,7 @@ export const getRecursiveWrongTypeValues = (documentType: DocumentType, db: Fire
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getRecursiveWrongTypes(documentType).map(obj => getTypesValues(obj, db))
 
-export const getRecursiveRiteTypeValues = (documentType: DocumentType, db: Firestore): TypeValue[] => {
+export const getRecursiveRightTypeValues = (documentType: DocumentType, db: Firestore): TypeValue[] => {
   const patterns = getFieldTypesPatterns(documentType) as TypePattern[]
   return patterns.map(pattern => getTypesValues(pattern, db))
 }
