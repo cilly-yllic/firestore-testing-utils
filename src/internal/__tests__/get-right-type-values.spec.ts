@@ -1,5 +1,5 @@
 import { getDb } from '../../firestore/index.js'
-import { getRecursiveRiteTypeValues } from '../index.js'
+import { getRecursiveRightTypeValues } from '../index.js'
 import { PRIMITIVE_FIELD_TYPES } from '../types/field-types.js'
 import { getFieldDefaultValues } from '../utils/test.js'
 
@@ -32,7 +32,7 @@ describe(__filename, () => {
       { string: defaultValues.latlng },
       { string: defaultValues.path },
     ]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple list`, async () => {
@@ -51,7 +51,7 @@ describe(__filename, () => {
       { list: [defaultValues.latlng] },
       { list: [defaultValues.path] },
     ]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple map`, async () => {
@@ -63,7 +63,7 @@ describe(__filename, () => {
     const db = await getDb()
     const defaultValues = getFieldDefaultValues(db)
     const LIST = [{ map: { number: defaultValues.number } }, { map: { number: defaultValues.string } }]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 })
 
@@ -74,7 +74,7 @@ describe(`${__filename} (specific)`, () => {
     }
     const db = await getDb()
     const LIST = [{ specific: 'foo' }]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
   it(`simple strings (specific)`, async () => {
     const DOCUMENT_TYPE = {
@@ -93,7 +93,7 @@ describe(`${__filename} (specific)`, () => {
       { specific: defaultValues.path },
       { specific: 'foo' },
     ]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple list (specific)`, async () => {
@@ -102,7 +102,7 @@ describe(`${__filename} (specific)`, () => {
     }
     const db = await getDb()
     const LIST = [{ list: ['foo'] }]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple lists (specific)`, async () => {
@@ -122,7 +122,7 @@ describe(`${__filename} (specific)`, () => {
       { list: [defaultValues.path] },
       { list: ['foo'] },
     ]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple map (specific)`, async () => {
@@ -133,7 +133,7 @@ describe(`${__filename} (specific)`, () => {
     }
     const db = await getDb()
     const LIST = [{ map: { specific: 'foo' } }]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple maps (specific)`, async () => {
@@ -145,6 +145,6 @@ describe(`${__filename} (specific)`, () => {
     const db = await getDb()
     const defaultValues = getFieldDefaultValues(db)
     const LIST = [{ map: { specific: 'foo' } }, { map: { specific: defaultValues.number } }]
-    expect(JSON.stringify(getRecursiveRiteTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveRightTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
 })
