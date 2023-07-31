@@ -6,7 +6,7 @@
 
 - fix typo method name
   - getRecursiveRiteTypeValues to getRecursiveRightTypeValues
-  
+
 # 3.1.0
 
 ## Breaking Changes
