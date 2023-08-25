@@ -4,22 +4,42 @@
  * Now build uses `dist` as explicit output subpath so we generate top-level alias here instead.
  */
 /* eslint-disable  @typescript-eslint/no-var-requires */
-const fs = require('fs-extra')
+const fsEx = require('fs-extra')
+const fs = require('fs')
 const path = require('path')
+const { name } = require('../package.json')
 /* eslint-enable  @typescript-eslint/no-var-requires */
 
-const aliasRoot = ['core', 'types']
+const getFiles = (dir, files_) => {
+  files_ = files_ || []
+  const files = fs.readdirSync(dir)
+  for (const file of files) {
+    const name = dir + '/' + file
+    if (fs.statSync(name).isDirectory()) {
+      getFiles(name, files_)
+    } else {
+      files_.push(name)
+    }
+  }
+  return files_
+}
 
+const srcPath = path.join(__dirname, '..', 'src')
+const regExp = new RegExp(`^${srcPath}/`)
+
+const aliasRoot = getFiles(srcPath)
+  .map(path => path.replace(regExp, '').replace(/\.ts$/, ''))
+  .filter(path => !/^internal|\.json$/.test(path))
 aliasRoot
   .map(alias => path.resolve(__dirname, `../${alias}`))
   .forEach(alias => {
-    if (fs.existsSync(alias)) {
-      fs.removeSync(alias)
+    if (fsEx.pathExistsSync(alias)) {
+      fsEx.removeSync(alias)
     }
-    fs.ensureDirSync(alias)
+    fsEx.ensureDirSync(alias)
   })
 
-const PREFIX = 'dist'
+const PREFIX = 'lib'
 
 aliasRoot.forEach(alias => {
   const relative = alias
@@ -27,11 +47,11 @@ aliasRoot.forEach(alias => {
     .map(() => '..')
     .join('/')
   const pkgManifest = {
-    name: `@cilly-yllic/${alias.split(/\//g).join('-')}`,
+    name: `${name.replace(/\//g, '-')}/${alias.split(/\//g).join('-')}`,
     types: `${relative}/${PREFIX}/${alias}.d.ts`,
     main: `${relative}/${PREFIX}/${alias}.js`,
     sideEffects: false,
   }
 
-  fs.writeJSON(path.resolve(__dirname, `../${alias}/package.json`), pkgManifest, { spaces: 2 })
+  fsEx.writeJSON(path.resolve(__dirname, `../${alias}/package.json`), pkgManifest, { spaces: 2 })
 })
