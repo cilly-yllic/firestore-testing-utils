@@ -1,6 +1,6 @@
 import { doc } from 'firebase/firestore'
 
-import { Firestore, collectionName, documentId, date } from '../types/field-types.js'
+import { Firestore, collectionName, documentId, date } from '../types/firestore-field-types.js'
 
 import { getGeoPoint, getServerTimestamp } from './firestore.js'
 

@@ -38,11 +38,11 @@ import { assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
 import { doc, setDoc } from 'firebase/firestore'
 import { v4 as randomStr } from 'uuid'
 import {
-  getTypesPatterns,
-  getTypesValues,
+  getKeyTypePatterns,
+  convertTypeToValue,
   getRecursiveWrongTypes,
-} from '@cilly-yllic/firestore-document-type-partterns/core'
-import { DocumentType, TypePattern, ALL_FIELD_TYPES } from '@cilly-yllic/firestore-document-type-partterns/types'
+} from '@cilly-yllic/firestore-document-type-partterns/security-rule'
+import { DocumentType, TypePattern, ALL_FIELD_TYPES } from '@cilly-yllic/firestore-document-type-partterns/types/firestore-field-types'
 
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
@@ -51,7 +51,7 @@ const documentTypes: DocumentType = {
 }
 
 const wrongTypes = getRecursiveWrongTypes(documentTypes)
-const rightTypes = getTypesPatterns(documentTypes)
+const rightTypes = getKeyTypePatterns(documentTypes)
 const path = 'users'
 const uid = randomStr()
 const pathSegments = [uid]
@@ -59,13 +59,13 @@ const pathSegments = [uid]
 describe('', () => {
   rightTypes.forEach(data => {
     test(`${JSON.stringify(data, null, 2)}`, async () => {
-      await assertSucceeds(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+      await assertSucceeds(setDoc(doc(db, path, ...pathSegments), convertTypeToValue(data, db)))
     })
   })
 
   wrongTypes.forEach(data => {
     test(`${JSON.stringify(data, null, 2)}`, async () => {
-      await assertFails(setDoc(doc(db, path, ...pathSegments), getTypesValues(data, db)))
+      await assertFails(setDoc(doc(db, path, ...pathSegments), convertTypeToValue(data, db)))
     })
   })
 })
@@ -103,7 +103,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getTypesPatterns`
+`getKeyTypePatterns`
 
 ```text
 [
@@ -145,7 +145,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getTypesPatterns`
+`getKeyTypePatterns`
 
 ```text
 [
@@ -221,7 +221,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getTypesPatterns`
+`getKeyTypePatterns`
 
 ```text
 [
@@ -265,7 +265,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getTypesPatterns`
+`getKeyTypePatterns`
 
 ```text
 [
@@ -312,7 +312,7 @@ const documentTypes: DocumentType = {
 }
 ```
 
-`getTypesPatterns`
+`getKeyTypePatterns`
 
 ```text
 [
