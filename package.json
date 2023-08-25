@@ -12,8 +12,8 @@
     "field type",
     "pattern"
   ],
-  "main": "./dist/core.js",
-  "types": "./dist/types.js",
+  "main": "./lib/core.js",
+  "types": "./lib/core.d.ts",
   "engines": {
     "node": ">=18.x"
   },
@@ -39,7 +39,7 @@
     "build:clean": "npm run clean",
     "build:tsc": "npm run tsc",
     "build:generate": "npm run generate",
-    "clean": "rimraf ./dist ./core ./types",
+    "clean": "rimraf ./lib ./core ./types",
     "tsc": "tsc --build tsconfig.publish.json",
     "generate": "node ./scripts/generate-alias.cjs"
   },
@@ -54,17 +54,17 @@
   },
   "homepage": "https://github.com/cilly-yllic/firestore-document-type-patterns#readme",
   "exports": {
-    ".": "./dist/**/*.js",
-    "./core": "./dist/core.js",
-    "./security-rule": "./dist/security-rule.js",
-    "./types/firestore-field-types": "./dist/types/firestore-field-types.js",
-    "./types/inclusion-types": "./dist/types/inclusion-types.js",
-    "./types/key-type": "./dist/types/key-type.js",
-    "./types/key-type-patterns": "./dist/types/key-type-patterns.js",
-    "./types/key-type-values": "./dist/types/key-type-values.js",
-    "./types/key-value-patterns": "./dist/types/path-type.js",
-    "./types/types": "./dist/types/types.js",
-    "./types/utilities": "./dist/types/utilities.js",
+    ".": "./lib/**/*.js",
+    "./core": "./lib/core.js",
+    "./security-rule": "./lib/security-rule.js",
+    "./types/firestore-field-types": "./lib/types/firestore-field-types.js",
+    "./types/inclusion-types": "./lib/types/inclusion-types.js",
+    "./types/key-type": "./lib/types/key-type.js",
+    "./types/key-type-patterns": "./lib/types/key-type-patterns.js",
+    "./types/key-type-values": "./lib/types/key-type-values.js",
+    "./types/key-value-patterns": "./lib/types/path-type.js",
+    "./types/types": "./lib/types/types.js",
+    "./types/utilities": "./lib/types/utilities.js",
     "./package.json": "./package.json"
   },
   "dependencies": {
@@ -101,8 +101,9 @@
   "files": [
     "!**/__tests__",
     "!src/firestore/**",
-    "dist",
+    "lib",
     "core",
+    "security-rule",
     "types",
     "src",
     "package.json",
