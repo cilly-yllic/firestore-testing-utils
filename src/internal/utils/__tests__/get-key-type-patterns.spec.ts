@@ -1,5 +1,5 @@
-import { DocumentType, PRIMITIVE_FIELD_TYPES } from '../../types/field-types.js'
-import { getFieldTypesPatterns } from '../common.js'
+import { DocumentType, PRIMITIVE_FIELD_TYPES } from '../../types/firestore-field-types.js'
+import { getKeyTypePatterns } from '../get-key-type-patterns.js'
 
 describe(__filename, () => {
   it(`type list check`, async () => {
@@ -14,7 +14,7 @@ describe(__filename, () => {
         string: PRIMITIVE_FIELD_TYPES.timestamp,
       },
     ]
-    expect(JSON.stringify(getFieldTypesPatterns(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getKeyTypePatterns<DocumentType>(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
   it(`type specific list check`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
@@ -28,7 +28,7 @@ describe(__filename, () => {
         string: 'foo',
       },
     ]
-    expect(JSON.stringify(getFieldTypesPatterns(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getKeyTypePatterns<DocumentType>(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
   it(`complicated check`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
@@ -81,6 +81,6 @@ describe(__filename, () => {
         ],
       },
     ]
-    expect(JSON.stringify(getFieldTypesPatterns(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getKeyTypePatterns<DocumentType>(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
   })
 })

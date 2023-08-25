@@ -1,6 +1,7 @@
 import { getDb } from '../../firestore/index.js'
-import { getRecursiveWrongTypeValues } from '../index.js'
-import { PRIMITIVE_FIELD_TYPES } from '../types/field-types.js'
+import { getRecursiveWrongTypeValues } from '../security-rule.js'
+import { PRIMITIVE_FIELD_TYPES } from '../types/firestore-field-types.js'
+import { REQUIRED_TYPE_VALUES } from '../types/types.js'
 import { getFieldDefaultValues } from '../utils/test.js'
 
 const ARRAY = [
@@ -27,10 +28,10 @@ describe(__filename, () => {
         string: defaultValues.string,
       },
       {
-        string: defaultValues.map,
+        string: REQUIRED_TYPE_VALUES.__map__,
       },
       {
-        string: defaultValues.list,
+        string: REQUIRED_TYPE_VALUES.__list__,
       },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
@@ -54,7 +55,7 @@ describe(__filename, () => {
       { list: defaultValues.path },
       { list: defaultValues.map },
       { list: [defaultValues.string] },
-      { list: [defaultValues.map] },
+      { list: [REQUIRED_TYPE_VALUES.__map__] },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
@@ -77,7 +78,7 @@ describe(__filename, () => {
       { map: defaultValues.timestamp },
       { map: defaultValues.latlng },
       { map: defaultValues.path },
-      { map: defaultValues.list },
+      { map: REQUIRED_TYPE_VALUES.__list__ },
 
       { map: { number: defaultValues.string } },
       { map: { number: defaultValues.bool } },
@@ -85,8 +86,8 @@ describe(__filename, () => {
       { map: { number: defaultValues.timestamp } },
       { map: { number: defaultValues.latlng } },
       { map: { number: defaultValues.path } },
-      { map: { number: defaultValues.map } },
-      { map: { number: defaultValues.list } },
+      { map: { number: REQUIRED_TYPE_VALUES.__map__ } },
+      { map: { number: REQUIRED_TYPE_VALUES.__list__ } },
     ]
     expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
   })
