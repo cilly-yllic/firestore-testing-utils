@@ -1,6 +1,6 @@
 import { getDb } from '../../firestore/index.js'
-import { getRecursiveRightTypeValues } from '../index.js'
-import { PRIMITIVE_FIELD_TYPES } from '../types/field-types.js'
+import { getRecursiveRightTypeValues } from '../security-rule.js'
+import { PRIMITIVE_FIELD_TYPES } from '../types/firestore-field-types.js'
 import { getFieldDefaultValues } from '../utils/test.js'
 
 const ARRAY = [

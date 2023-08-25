@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "3.2.2",
+  "version": "4.0.1",
   "type": "module",
   "description": "",
   "keywords": [
@@ -56,7 +56,15 @@
   "exports": {
     ".": "./dist/**/*.js",
     "./core": "./dist/core.js",
-    "./types": "./dist/types.js",
+    "./security-rule": "./dist/security-rule.js",
+    "./types/firestore-field-types": "./dist/types/firestore-field-types.js",
+    "./types/inclusion-types": "./dist/types/inclusion-types.js",
+    "./types/key-type": "./dist/types/key-type.js",
+    "./types/key-type-patterns": "./dist/types/key-type-patterns.js",
+    "./types/key-type-values": "./dist/types/key-type-values.js",
+    "./types/key-value-patterns": "./dist/types/path-type.js",
+    "./types/types": "./dist/types/types.js",
+    "./types/utilities": "./dist/types/utilities.js",
     "./package.json": "./package.json"
   },
   "dependencies": {
@@ -68,27 +76,27 @@
     "zx": "^7.2.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/plugin-transform-modules-commonjs": "^7.22.5",
-    "@babel/preset-env": "^7.22.9",
-    "@types/jest": "^29.5.3",
-    "@types/node": "^20.4.5",
+    "@babel/core": "^7.22.11",
+    "@babel/plugin-transform-modules-commonjs": "^7.22.11",
+    "@babel/preset-env": "^7.22.10",
+    "@types/jest": "^29.5.4",
+    "@types/node": "^20.5.6",
     "@types/uuid": "^9.0.2",
-    "@typescript-eslint/eslint-plugin": "^6.2.0",
-    "@typescript-eslint/parser": "^6.2.0",
-    "babel-jest": "^29.6.2",
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-plugin-import": "^2.28.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "babel-jest": "^29.6.4",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-unused-imports": "^3.0.0",
     "fs-extra": "^11.1.1",
     "husky": "^8.0.3",
-    "jest": "^29.6.2",
+    "jest": "^29.6.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.0.0",
+    "prettier": "^3.0.2",
     "shx": "^0.3.4",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   },
   "files": [
     "!**/__tests__",

@@ -1,10 +1,16 @@
-import { DocumentType, ALL_FIELD_TYPES, PRIMITIVE_FIELD_TYPES, PathType } from '../../types/field-types.js'
-import { getAllPathTypes } from '../common.js'
+import { DocumentData } from 'firebase/firestore'
+
+import { DocumentType, ALL_FIELD_TYPES, PathType, INCLUSIONS } from '../../types/firestore-field-types.js'
+import { REQUIRED_TYPES } from '../../types/types.js'
+import { getAllTheOtherFieldTypes } from '../get-all-the-other-field-types.js'
+
+type Data = DocumentData
+type KeyTypeConst = typeof ALL_FIELD_TYPES
 
 describe(__filename, () => {
   it(`check simple array`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
-      'list[]': [PRIMITIVE_FIELD_TYPES.string],
+      'list[]': [ALL_FIELD_TYPES.string],
     }
     const LIST: PathType[] = [
       { path: 'list', type: ALL_FIELD_TYPES.string },
@@ -16,7 +22,7 @@ describe(__filename, () => {
       { path: 'list', type: ALL_FIELD_TYPES.timestamp },
       { path: 'list', type: ALL_FIELD_TYPES.latlng },
       { path: 'list', type: ALL_FIELD_TYPES.path },
-      { path: 'list', type: ALL_FIELD_TYPES.map },
+      { path: 'list', type: REQUIRED_TYPES.map },
       // { path: 'array', value: defaultValues.string },
       { path: 'list[]', type: ALL_FIELD_TYPES.number },
       { path: 'list[]', type: ALL_FIELD_TYPES.int },
@@ -26,16 +32,18 @@ describe(__filename, () => {
       { path: 'list[]', type: ALL_FIELD_TYPES.timestamp },
       { path: 'list[]', type: ALL_FIELD_TYPES.latlng },
       { path: 'list[]', type: ALL_FIELD_TYPES.path },
-      { path: 'list[]', type: ALL_FIELD_TYPES.map },
+      { path: 'list[]', type: REQUIRED_TYPES.map },
     ]
-    expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(
+      JSON.stringify(getAllTheOtherFieldTypes<Data, KeyTypeConst>(DOCUMENT_TYPE, ALL_FIELD_TYPES, INCLUSIONS))
+    ).toBe(JSON.stringify(LIST))
   })
 
   it(`check simple map`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
       map: [
         {
-          string: [PRIMITIVE_FIELD_TYPES.string],
+          string: [ALL_FIELD_TYPES.string],
         },
       ],
     }
@@ -49,7 +57,7 @@ describe(__filename, () => {
       { path: 'map', type: ALL_FIELD_TYPES.timestamp },
       { path: 'map', type: ALL_FIELD_TYPES.latlng },
       { path: 'map', type: ALL_FIELD_TYPES.path },
-      { path: 'map', type: ALL_FIELD_TYPES.list },
+      { path: 'map', type: REQUIRED_TYPES.list },
 
       { path: 'map.string', type: ALL_FIELD_TYPES.number },
       { path: 'map.string', type: ALL_FIELD_TYPES.int },
@@ -59,17 +67,19 @@ describe(__filename, () => {
       { path: 'map.string', type: ALL_FIELD_TYPES.timestamp },
       { path: 'map.string', type: ALL_FIELD_TYPES.latlng },
       { path: 'map.string', type: ALL_FIELD_TYPES.path },
-      { path: 'map.string', type: ALL_FIELD_TYPES.map },
-      { path: 'map.string', type: ALL_FIELD_TYPES.list },
+      { path: 'map.string', type: REQUIRED_TYPES.map },
+      { path: 'map.string', type: REQUIRED_TYPES.list },
     ]
-    expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(
+      JSON.stringify(getAllTheOtherFieldTypes<Data, KeyTypeConst>(DOCUMENT_TYPE, ALL_FIELD_TYPES, INCLUSIONS))
+    ).toBe(JSON.stringify(LIST))
   })
 
   it(`check map.array`, async () => {
     const DOCUMENT_TYPE: DocumentType = {
       map: [
         {
-          'list[]': [PRIMITIVE_FIELD_TYPES.string],
+          'list[]': [ALL_FIELD_TYPES.string],
         },
       ],
     }
@@ -83,7 +93,7 @@ describe(__filename, () => {
       { path: 'map', type: ALL_FIELD_TYPES.timestamp },
       { path: 'map', type: ALL_FIELD_TYPES.latlng },
       { path: 'map', type: ALL_FIELD_TYPES.path },
-      { path: 'map', type: ALL_FIELD_TYPES.list },
+      { path: 'map', type: REQUIRED_TYPES.list },
 
       { path: 'map.list', type: ALL_FIELD_TYPES.string },
       { path: 'map.list', type: ALL_FIELD_TYPES.number },
@@ -94,7 +104,7 @@ describe(__filename, () => {
       { path: 'map.list', type: ALL_FIELD_TYPES.timestamp },
       { path: 'map.list', type: ALL_FIELD_TYPES.latlng },
       { path: 'map.list', type: ALL_FIELD_TYPES.path },
-      { path: 'map.list', type: ALL_FIELD_TYPES.map },
+      { path: 'map.list', type: REQUIRED_TYPES.map },
 
       { path: 'map.list[]', type: ALL_FIELD_TYPES.number },
       { path: 'map.list[]', type: ALL_FIELD_TYPES.int },
@@ -104,8 +114,10 @@ describe(__filename, () => {
       { path: 'map.list[]', type: ALL_FIELD_TYPES.timestamp },
       { path: 'map.list[]', type: ALL_FIELD_TYPES.latlng },
       { path: 'map.list[]', type: ALL_FIELD_TYPES.path },
-      { path: 'map.list[]', type: ALL_FIELD_TYPES.map },
+      { path: 'map.list[]', type: REQUIRED_TYPES.map },
     ]
-    expect(JSON.stringify(getAllPathTypes(DOCUMENT_TYPE))).toBe(JSON.stringify(LIST))
+    expect(
+      JSON.stringify(getAllTheOtherFieldTypes<Data, KeyTypeConst>(DOCUMENT_TYPE, ALL_FIELD_TYPES, INCLUSIONS))
+    ).toBe(JSON.stringify(LIST))
   })
 })

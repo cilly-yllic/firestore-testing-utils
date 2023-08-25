@@ -1,6 +1,7 @@
 import { getDb } from '../../../firestore/index.js'
-import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/field-types.js'
-import { getTypesValues } from '../common.js'
+import { PRIMITIVE_FIELD_TYPES, TypePattern } from '../../types/firestore-field-types.js'
+import { convertTypeToValue } from '../convert-type-to-value.js'
+import { TYPE_VALUES } from '../firestore-type-values.js'
 import { getFieldDefaultValues } from '../test.js'
 
 describe(__filename, () => {
@@ -31,6 +32,6 @@ describe(__filename, () => {
         },
       ],
     }
-    expect(JSON.stringify(getTypesValues(PATTERN, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(convertTypeToValue(PATTERN, TYPE_VALUES(db)))).toBe(JSON.stringify(LIST))
   })
 })
