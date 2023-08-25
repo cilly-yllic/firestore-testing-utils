@@ -42,7 +42,11 @@ import {
   convertTypeToValue,
   getRecursiveWrongTypes,
 } from '@cilly-yllic/firestore-document-type-partterns/security-rule'
-import { DocumentType, TypePattern, ALL_FIELD_TYPES } from '@cilly-yllic/firestore-document-type-partterns/types/firestore-field-types'
+import {
+  DocumentType,
+  TypePattern,
+  ALL_FIELD_TYPES,
+} from '@cilly-yllic/firestore-document-type-partterns/types/firestore-field-types'
 
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
