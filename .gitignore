@@ -104,5 +104,7 @@ dist
 .tern-port
 
 .idea
+/lib
 /core
 /types
+/security-rule
