@@ -1,6 +1,0 @@
-{
-  "name": "@cilly-yllic-firestore-document-type-partterns/firestore-firestore.rules",
-  "types": "../../lib/firestore/firestore.rules.d.ts",
-  "main": "../../lib/firestore/firestore.rules.js",
-  "sideEffects": false
-}

@@ -1,6 +1,0 @@
-{
-  "name": "@cilly-yllic-firestore-document-type-partterns/firestore-index",
-  "types": "../../lib/firestore/index.d.ts",
-  "main": "../../lib/firestore/index.js",
-  "sideEffects": false
-}
