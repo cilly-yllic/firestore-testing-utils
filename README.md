@@ -384,6 +384,7 @@ and also wrong type of (int / float) not contain number.
 ```
 
 ### Set Key Types / Type Values
+
 ```ts
 import {
   getKeyTypePatterns,
@@ -438,5 +439,10 @@ const keyValueFnc: KeyTypeValueFnc<KeyValue> = () => {
 const rightTypes = getKeyTypePatterns<D>(keyTypesList)
 const wrongTypes = getRecursiveWrongTypes<Data, KeyTypeConst>(keyTypesList, keyType, inclusions)
 const rightTypeValues = getRecursiveRightTypeValues<Data, KeyValue>(keyTypesList, keyValueFnc)
-const wrongTypeValues = getRecursiveWrongTypeValues<Data, KeyTypeConst, KeyValue>(keyTypesList, keyType, inclusions, keyValueFnc)
+const wrongTypeValues = getRecursiveWrongTypeValues<Data, KeyTypeConst, KeyValue>(
+  keyTypesList,
+  keyType,
+  inclusions,
+  keyValueFnc
+)
 ```
