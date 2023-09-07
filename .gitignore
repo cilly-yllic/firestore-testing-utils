@@ -108,3 +108,4 @@ dist
 /core
 /types
 /security-rule
+/firestore
