@@ -1,8 +1,6 @@
 # firestore-document-type-patterns
 
-This Package Basically Published By Github Packages
-
-> firestore-document-type-patterns give you type test patterns.
+> firestore-document-type-patterns gives you type test patterns.
 > Then you might be able to check value types for security rule test easily.
 
 ## Installation
@@ -16,13 +14,6 @@ from v2.0.0
 }
 ```
 
-Github Packages
-
-```bash
-$ echo "@cilly-yllic:registry=https://npm.pkg.github.com" >> .npmrc
-$ npm i @cilly-yllic/firestore-document-type-partterns
-```
-
 NPM Packages
 
 ```bash
@@ -30,8 +21,6 @@ $ npm i firestore-document-type-partterns
 ```
 
 ## How To Use
-
-**If you install from NPM rename `@cilly-yllic/firestore-document-type-partterns` to `firestore-document-type-partterns`**
 
 ```ts
 import { assertSucceeds, assertFails } from '@firebase/rules-unit-testing'
@@ -41,12 +30,12 @@ import {
   getKeyTypePatterns,
   convertTypeToValue,
   getRecursiveWrongTypes,
-} from '@cilly-yllic/firestore-document-type-partterns/security-rule'
+} from 'firestore-document-type-partterns/security-rule'
 import {
   DocumentType,
   TypePattern,
   ALL_FIELD_TYPES,
-} from '@cilly-yllic/firestore-document-type-partterns/types/firestore-field-types'
+} from 'firestore-document-type-partterns/types/firestore-field-types'
 
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
@@ -54,8 +43,8 @@ const documentTypes: DocumentType = {
   createdAt: ALL_FIELD_TYPES.timestamp,
 }
 
-const wrongTypes = getRecursiveWrongTypes(documentTypes)
-const rightTypes = getKeyTypePatterns(documentTypes)
+const wrongTypes = getRecursiveWrongTypes([documentTypes])
+const rightTypes = getKeyTypePatterns([documentTypes])
 const path = 'users'
 const uid = randomStr()
 const pathSegments = [uid]
@@ -392,4 +381,62 @@ number: allow all these above (1, -1, 1.1, and -1.1)
 ```txt
 then, wrong type of number not contain int or float neither.
 and also wrong type of (int / float) not contain number.
+```
+
+### Set Key Types / Type Values
+```ts
+import {
+  getKeyTypePatterns,
+  getRecursiveWrongTypes,
+  getRecursiveRightTypeValues,
+  getRecursiveWrongTypeValues,
+} from 'firestore-document-type-partterns/core'
+import { Inclusions } from 'firestore-document-type-partterns/types/inclusion-types'
+import { KeyTypePatterns } from 'firestore-document-type-partterns/types/key-type-patterns'
+import { KeyTypeValueFnc, KeyTypeValues, KeyValues } from 'firestore-document-type-partterns/types/key-type-values'
+import { KeyType } from 'firestore-document-type-partterns/types/key-type'
+import { REQUIRED_TYPE_VALUES } from 'firestore-document-type-partterns/types/types'
+
+interface Data {
+  hoge: string
+  foo: string
+}
+
+type KeyTypeConst = {
+  hoge: string
+  foo: string
+}
+
+type KeyValue = {
+  hoge: number
+  foo: number
+}
+
+const keyType: KeyType<KeyTypeConst> = {
+  hoge: 'hoge',
+  foo: 'foo',
+}
+const inclusions: Inclusions<KeyTypeConst> = {
+  [keyType.hoge]: [keyType.hoge, keyType.foo],
+}
+const keyTypesList: KeyTypePatterns<Data>[] = [
+  {
+    hoge: keyType.hoge,
+    foo: keyType.foo,
+  },
+]
+
+const KEY_VALUES: KeyTypeValues<KeyValue> = {
+  hoge: 1,
+  foo: 2,
+  ...REQUIRED_TYPE_VALUES,
+}
+const keyValueFnc: KeyTypeValueFnc<KeyValue> = () => {
+  return KEY_VALUES
+}
+
+const rightTypes = getKeyTypePatterns<D>(keyTypesList)
+const wrongTypes = getRecursiveWrongTypes<Data, KeyTypeConst>(keyTypesList, keyType, inclusions)
+const rightTypeValues = getRecursiveRightTypeValues<Data, KeyValue>(keyTypesList, keyValueFnc)
+const wrongTypeValues = getRecursiveWrongTypeValues<Data, KeyTypeConst, KeyValue>(keyTypesList, keyType, inclusions, keyValueFnc)
 ```

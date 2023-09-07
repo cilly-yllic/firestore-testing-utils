@@ -34,3 +34,6 @@ export const updateObjProp = (obj: Record<string, any>, value: string, propPath:
     updateObjProp(_value, value, rest.join('.'))
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getUnique = (list: any[]) => Array.from(new Map(list.map(data => [JSON.stringify(data), data])).values())

@@ -7,8 +7,16 @@ export const getLeftTypes = <C extends KeyTypeConst = KeyTypeConst>(
   inclusions: Inclusions<C>
 ): Type<C>[] =>
   Object.values(keyTypes).filter(keyType => {
-    if (keyType in inclusions && inclusions[keyType].length > 0) {
-      return types.every(type => !inclusions[keyType].includes(type))
+    // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // // @ts-ignore
+    // if (keyType in inclusions && inclusions[keyType].length > 0) {
+    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //   // @ts-ignore
+    //   return types.every(type => !inclusions[keyType].includes(type))
+    // }
+    const type = keyType in inclusions ? inclusions[keyType] : null
+    if (!!type && type.length > 0) {
+      return types.every(t => !type.includes(t))
     }
     return types.every(type => keyType !== type)
   })
