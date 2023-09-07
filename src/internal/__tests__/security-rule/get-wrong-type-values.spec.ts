@@ -1,8 +1,8 @@
-import { getDb } from '../../firestore/index.js'
-import { getRecursiveWrongTypeValues } from '../security-rule.js'
-import { PRIMITIVE_FIELD_TYPES } from '../types/firestore-field-types.js'
-import { REQUIRED_TYPE_VALUES } from '../types/types.js'
-import { getFieldDefaultValues } from '../utils/test.js'
+import { getDb } from '../../../firestore/index.js'
+import { getRecursiveWrongTypeValues } from '../../security-rule.js'
+import { PRIMITIVE_FIELD_TYPES } from '../../types/firestore-field-types.js'
+import { REQUIRED_TYPE_VALUES } from '../../types/types.js'
+import { getFieldDefaultValues } from '../../utils/test.js'
 
 const ARRAY = [
   // PRIMITIVE_FIELD_TYPES.string,
@@ -34,7 +34,7 @@ describe(__filename, () => {
         string: REQUIRED_TYPE_VALUES.__list__,
       },
     ]
-    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveWrongTypeValues([DOCUMENT_TYPE], db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple array`, async () => {
@@ -57,7 +57,7 @@ describe(__filename, () => {
       { list: [defaultValues.string] },
       { list: [REQUIRED_TYPE_VALUES.__map__] },
     ]
-    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveWrongTypeValues([DOCUMENT_TYPE], db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple map`, async () => {
@@ -89,7 +89,7 @@ describe(__filename, () => {
       { map: { number: REQUIRED_TYPE_VALUES.__map__ } },
       { map: { number: REQUIRED_TYPE_VALUES.__list__ } },
     ]
-    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveWrongTypeValues([DOCUMENT_TYPE], db))).toBe(JSON.stringify(LIST))
   })
 })
 
@@ -225,7 +225,7 @@ describe(`${__filename} (specific)`, () => {
         string: defaultValues.list,
       },
     ]
-    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveWrongTypeValues([DOCUMENT_TYPE], db))).toBe(JSON.stringify(LIST))
   })
 
   it(`simple array`, async () => {
@@ -248,6 +248,6 @@ describe(`${__filename} (specific)`, () => {
       { list: [defaultValues.string] },
       { list: [defaultValues.map] },
     ]
-    expect(JSON.stringify(getRecursiveWrongTypeValues(DOCUMENT_TYPE, db))).toBe(JSON.stringify(LIST))
+    expect(JSON.stringify(getRecursiveWrongTypeValues([DOCUMENT_TYPE], db))).toBe(JSON.stringify(LIST))
   })
 })

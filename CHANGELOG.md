@@ -1,4 +1,14 @@
-# 3.1.0
+# 5.0.0
+
+## Breaking Changes
+
+###
+
+- object to list params with these methods
+  - getRecursiveRightTypeValues
+  - getRecursiveWrongTypes
+
+# 3.2.0
 
 ## Breaking Changes
 

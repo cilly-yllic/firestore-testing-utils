@@ -53,7 +53,7 @@ describe(__filename, () => {
   })
   it(`is specific`, async () => {
     const db = await getDb()
-    const typeValues = TYPE_VALUES(db, { specific: 'specific' })()
+    const typeValues = TYPE_VALUES<{ specific: 'specific' }>(db, { specific: 'specific' })()
     expect(typeValues['specific']).toBe('specific')
   })
 })

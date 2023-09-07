@@ -11,3 +11,7 @@ export const REQUIRED_TYPE_VALUES = {
 } as const
 
 export type RequiredTypeValues = (typeof REQUIRED_TYPE_VALUES)[keyof typeof REQUIRED_TYPE_VALUES]
+
+export type RequiredKeyValue = {
+  [key in keyof typeof REQUIRED_TYPE_VALUES]: RequiredTypeValues
+}

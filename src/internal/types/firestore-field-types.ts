@@ -4,6 +4,7 @@ import { DocumentData } from 'firebase/firestore'
 import { v4 as randomStr } from 'uuid'
 
 import { Inclusions } from './inclusion-types.js'
+import { REQUIRED_TYPES } from './types.js'
 import { Data, IncludeArrayKeyMap } from './utilities.js'
 
 export type Firestore = ReturnType<RulesTestContext['firestore']>
@@ -21,12 +22,12 @@ export const PRIMITIVE_FIELD_TYPES = {
   timestamp: 'timestamp',
   latlng: 'latlng',
   path: 'path',
-}
+} as const
 export const ALL_FIELD_TYPES = {
   ...PRIMITIVE_FIELD_TYPES,
-  map: 'map',
-  list: 'list',
-}
+  map: REQUIRED_TYPES.map,
+  list: REQUIRED_TYPES.list,
+} as const
 
 export type PrimitiveFieldTypes = (typeof PRIMITIVE_FIELD_TYPES)[keyof typeof PRIMITIVE_FIELD_TYPES]
 export type AllFieldTypes = (typeof ALL_FIELD_TYPES)[keyof typeof ALL_FIELD_TYPES]
@@ -40,7 +41,7 @@ export const INCLUSIONS: Inclusions<typeof ALL_FIELD_TYPES> = {
   [ALL_FIELD_TYPES.float]: [ALL_FIELD_TYPES.number, ALL_FIELD_TYPES.float],
 }
 
-export type FieldType = PrimitiveFieldTypes | FieldMap
+export type FieldType = PrimitiveFieldTypes | FieldMap | string // for specific
 
 export type FieldMap<T extends Data = DocumentData> = {
   [fieldName in keyof T]: FieldType | FieldType[]
