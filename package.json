@@ -51,8 +51,7 @@
     "build:generate": "npm run generate",
 
     "//--- publish ---//": "",
-    "publish": "run-s build:*",
-    "publish:build": "run-s build:{tsc,generate}"
+    "publish:build": "run-s build:{clean,tsc,generate}"
   },
   "repository": {
     "type": "git",
