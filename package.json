@@ -48,7 +48,11 @@
     "build:test": "npm run test",
     "build:clean": "npm run clean",
     "build:tsc": "npm run tsc",
-    "build:generate": "npm run generate"
+    "build:generate": "npm run generate",
+
+    "//--- publish ---//": "",
+    "publish": "run-s build:*",
+    "publish:build": "run-s build:{tsc,generate}"
   },
   "repository": {
     "type": "git",
