@@ -49,7 +49,7 @@ jobs:
         run: npm ci
 
       - name: Build test
-        run: npm run build:publish
+        run: npm run publish:build
 
   lint-check:
     needs: setup
