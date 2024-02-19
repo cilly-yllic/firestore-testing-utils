@@ -17,7 +17,7 @@ from v2.0.0
 NPM Packages
 
 ```bash
-$ npm i firestore-document-type-partterns
+$ npm i firestore-document-type-patterns
 ```
 
 ## How To Use
@@ -30,12 +30,12 @@ import {
   getKeyTypePatterns,
   convertTypeToValue,
   getRecursiveWrongTypes,
-} from 'firestore-document-type-partterns/security-rule'
+} from 'firestore-document-type-patterns/security-rule'
 import {
   DocumentType,
   TypePattern,
   ALL_FIELD_TYPES,
-} from 'firestore-document-type-partterns/types/firestore-field-types'
+} from 'firestore-document-type-patterns/types/firestore-field-types'
 
 const documentTypes: DocumentType = {
   uid: ALL_FIELD_TYPES.string,
@@ -391,12 +391,12 @@ import {
   getRecursiveWrongTypes,
   getRecursiveRightTypeValues,
   getRecursiveWrongTypeValues,
-} from 'firestore-document-type-partterns/core'
-import { Inclusions } from 'firestore-document-type-partterns/types/inclusion-types'
-import { KeyTypePatterns } from 'firestore-document-type-partterns/types/key-type-patterns'
-import { KeyTypeValueFnc, KeyTypeValues, KeyValues } from 'firestore-document-type-partterns/types/key-type-values'
-import { KeyType } from 'firestore-document-type-partterns/types/key-type'
-import { REQUIRED_TYPE_VALUES } from 'firestore-document-type-partterns/types/types'
+} from 'firestore-document-type-patterns/core'
+import { Inclusions } from 'firestore-document-type-patterns/types/inclusion-types'
+import { KeyTypePatterns } from 'firestore-document-type-patterns/types/key-type-patterns'
+import { KeyTypeValueFnc, KeyTypeValues, KeyValues } from 'firestore-document-type-patterns/types/key-type-values'
+import { KeyType } from 'firestore-document-type-patterns/types/key-type'
+import { REQUIRED_TYPE_VALUES } from 'firestore-document-type-patterns/types/types'
 
 interface Data {
   hoge: string
