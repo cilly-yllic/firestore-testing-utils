@@ -91,7 +91,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npm run ci:sync-npm
-      - run: npm run build:publish
+      - run: npm run publish:build
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ env.NPM_ACCESS_TOKEN }}
