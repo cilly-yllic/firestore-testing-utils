@@ -1,5 +1,6 @@
 #!/usr/bin/env zx
 import { fs } from 'zx'
+
 import packageJson from './../../package.json'
 import npmPackageJson from './../../package.npm.json'
 
