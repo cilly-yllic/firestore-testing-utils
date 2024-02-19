@@ -8,6 +8,8 @@ on:
 
 env:
   NODE_VERSION_FILE: .nvmrc
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
 
 jobs:
   release:
@@ -77,4 +79,19 @@ jobs:
       - run: npm run publish:build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ env.GITHUB_TOKEN }}
+  publish-npm:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run ci:sync-npm
+      - run: npm run build:publish
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ env.NPM_ACCESS_TOKEN }}
