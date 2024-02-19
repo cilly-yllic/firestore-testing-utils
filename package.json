@@ -1,6 +1,6 @@
 {
-  "name": "@cilly-yllic/firestore-document-type-partterns",
-  "version": "5.0.5",
+  "name": "@cilly-yllic/firestore-document-type-patterns",
+  "version": "6.0.0",
   "type": "module",
   "description": "",
   "keywords": [
@@ -35,7 +35,8 @@
     "clean": "rimraf ./lib ./core ./types",
     "tsc": "tsc --build tsconfig.publish.json",
     "generate": "node ./scripts/generate-alias.cjs",
-    "ci:update-version": "zx ./scripts/ci/update-version.mjs",
+    "ci:update-version": "tsx ./scripts/ci/update-version.ts",
+    "ci:sync-npm": "tsx ./scripts/ci/sync-npm.ts",
 
     "//--- test ---//": "",
     "test": "run-s test:*",
@@ -107,6 +108,7 @@
     "prettier": "^3.2.5",
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
+    "tsx": "^4.7.1",
     "typescript": "^5.3.3"
   },
   "files": [

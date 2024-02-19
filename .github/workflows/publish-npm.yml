@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+env:
+  NODE_VERSION_FILE: .nvmrc
+  NPM_ACCESS_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build:publish
+      - run: npm run ci:sync-npm
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ env.NPM_ACCESS_TOKEN }}
