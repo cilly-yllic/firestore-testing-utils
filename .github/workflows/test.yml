@@ -86,3 +86,23 @@ jobs:
       - run: npm i -g firebase-tools
       - name: jest test
         run: npm run test:jest
+  jest-matrix-check:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 21]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Root Node Version
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install Packages
+        run: npm ci
+      - run: npm i -g firebase-tools
+      - name: jest test
+        run: npm run test:jest
