@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-patterns",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "type": "module",
   "description": "",
   "keywords": [
@@ -37,13 +37,11 @@
     "generate": "node ./scripts/generate-alias.cjs",
     "ci:update-version": "tsx ./scripts/ci/update-version.ts",
     "ci:sync-npm": "tsx ./scripts/ci/sync-npm.ts",
-
     "//--- test ---//": "",
     "test": "run-s test:*",
     "test:lint": "npm run lint",
     "test:prettier": "npm run prettier:check",
     "test:jest": "npm run jest:specs",
-
     "//--- build ---//": "",
     "build": "run-s build:*",
     "build:test": "npm run test",
