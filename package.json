@@ -80,7 +80,7 @@
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
     "@firebase/rules-unit-testing": "^3.0.2",
-    "my-gadgetry": "^1.0.0-alpha.0",
+    "my-gadgetry": "^1.0.3",
     "uuid": "^9.0.1",
     "zx": "^8.0.2"
   },
@@ -108,7 +108,7 @@
     "prettier": "^3.2.5",
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
-    "tsx": "^4.7.2",
+    "tsx": "^4.7.3",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
   },
