@@ -1,6 +1,6 @@
 {
   "name": "@cilly-yllic/firestore-document-type-patterns",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "type": "module",
   "description": "",
   "keywords": [
@@ -34,9 +34,9 @@
     "jest": "jest --passWithNoTests --silent false --verbose false",
     "clean": "rimraf ./lib ./core ./types",
     "tsc": "tsc --build tsconfig.publish.json",
-    "generate": "node ./scripts/generate-alias.cjs",
-    "ci:update-version": "tsx ./scripts/ci/update-version.ts",
-    "ci:sync-npm": "tsx ./scripts/ci/sync-npm.ts",
+    "generate": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/generate-alias.ts",
+    "ci:update-version": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/update-version.ts",
+    "ci:sync-npm": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/sync-npm.ts",
     "//--- test ---//": "",
     "test": "run-s test:*",
     "test:lint": "npm run lint",
@@ -80,6 +80,7 @@
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
     "@firebase/rules-unit-testing": "^3.0.2",
+    "my-gadgetry": "^1.0.3",
     "uuid": "^9.0.1",
     "zx": "^8.0.2"
   },
@@ -107,7 +108,7 @@
     "prettier": "^3.2.5",
     "shx": "^0.3.4",
     "ts-jest": "^29.1.2",
-    "tsx": "^4.7.2",
+    "tsx": "^4.7.3",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
   },
