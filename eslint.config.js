@@ -25,7 +25,7 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['lib/**', '**/*.json', '**/*.yml', '**/*.js', '**/*.cjs', '**/*.mjs'],
+    ignores: ['lib/**', '**/*.json', '**/*.yml', '**/*.js', '**/*.cjs', '**/*.mjs', 'jest.config.ts', '**/*.spec.ts'],
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -37,7 +37,7 @@ export default tseslint.config(
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
-        project: 'tsconfig.spec.json',
+        project: 'tsconfig.eslint.json',
         tsconfigRootDir: import.meta.dirname,
       },
       ecmaVersion: 'latest',
