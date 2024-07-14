@@ -15,7 +15,7 @@
   "main": "./lib/core.js",
   "types": "./lib/core.d.ts",
   "engines": {
-    "node": ">=18.x"
+    "node": "20 || >=22.x"
   },
   "publishConfig": {
     "access": "restricted",
@@ -37,17 +37,20 @@
     "generate": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/generate-alias.ts",
     "ci:update-version": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/update-version.ts",
     "ci:sync-npm": "tsx --tsconfig ./tsconfig.zx.json ./scripts/ci/sync-npm.ts",
+
     "//--- test ---//": "",
     "test": "run-s test:*",
     "test:lint": "npm run lint",
     "test:prettier": "npm run prettier:check",
     "test:jest": "npm run jest:specs",
+
     "//--- build ---//": "",
     "build": "run-s build:*",
     "build:test": "npm run test",
     "build:clean": "npm run clean",
     "build:tsc": "npm run tsc",
     "build:generate": "npm run generate",
+
     "//--- publish ---//": "",
     "publish:build": "run-s build:{clean,tsc,generate}"
   },
